@@ -214,19 +214,36 @@ async function loadPartners() {
 
     if (!data.success || !data.data || data.data.length === 0) {
       partnersContainer.innerHTML = `
-        <div class="col-6 col-md-3"><div class="partner-logo-box"><span class="fw-bold text-muted">Université Cadi Ayyad</span></div></div>
-        <div class="col-6 col-md-3"><div class="partner-logo-box"><span class="fw-bold text-muted">FMPM Marrakech</span></div></div>
-        <div class="col-6 col-md-3"><div class="partner-logo-box"><span class="fw-bold text-muted">CHU Mohammed VI</span></div></div>
-        <div class="col-6 col-md-3"><div class="partner-logo-box"><span class="fw-bold text-muted">SMTM Maroc</span></div></div>
+        <div class="col-12 col-md-4 mb-4">
+          <a href="https://www.uca.ma" target="_blank" class="text-decoration-none">
+            <div class="partner-logo-box" title="Université Cadi Ayyad de Marrakech">
+              <img src="/img/partners/uca.jpg" alt="Université Cadi Ayyad">
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-4 mb-4">
+          <a href="https://fmpm.uca.ma" target="_blank" class="text-decoration-none">
+            <div class="partner-logo-box" title="Faculté de Médecine et de Pharmacie de Marrakech">
+              <img src="/img/partners/fpm.webp" alt="Faculté de Médecine et de Pharmacie">
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-4 mb-4">
+          <a href="http://www.chumarrakech.ma" target="_blank" class="text-decoration-none">
+            <div class="partner-logo-box" title="CHU Mohammed VI Marrakech">
+              <img src="/img/partners/chu.webp" alt="CHU Mohammed VI">
+            </div>
+          </a>
+        </div>
       `;
       return;
     }
 
     partnersContainer.innerHTML = data.data.map(p => `
-      <div class="col-6 col-md-3 mb-4">
+      <div class="col-12 col-md-4 mb-4">
         <a href="${p.site_url || '#'}" target="_blank" class="text-decoration-none">
           <div class="partner-logo-box" title="${p.nom}">
-            <img src="${p.logo_path}" alt="${p.nom}" onerror="this.onerror=null; this.parentNode.innerHTML='<span class=\'fw-bold text-dark text-center style=\'font-size:0.85rem;\'\'>${p.nom}</span>';">
+            <img src="${p.logo_path}" alt="${p.nom}" onerror="this.onerror=null; this.parentNode.innerHTML='<span class=\'fw-bold text-dark text-center\' style=\'font-size:0.85rem;\'>${p.nom}</span>';">
           </div>
         </a>
       </div>
@@ -524,7 +541,7 @@ function initSplashIntro() {
       [...w].forEach((c, i) => {
         const s = document.createElement('span');
         s.textContent = c;
-        s.style.animationDelay = (2.8 + (TEXT.indexOf(w) + i) * 0.035) + 's';
+        s.style.animationDelay = (1.6 + (TEXT.indexOf(w) + i) * 0.02) + 's';
         word.appendChild(s);
       });
       fr.appendChild(word);
@@ -619,8 +636,8 @@ function initSplashIntro() {
     }, 850);
   };
 
-  // Laisser l'animation se terminer COMPLÈTEMENT (5.8 secondes)
-  setTimeout(closeSplash, 5800);
+  // Laisser l'animation se terminer de manière fluide et rapide (3.4 secondes)
+  setTimeout(closeSplash, 3400);
 }
 
 // 12. Chargement Dynamique des Paramètres & Médias du Site (Hero & Badges)

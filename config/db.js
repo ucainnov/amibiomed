@@ -293,30 +293,23 @@ async function seedInitialData() {
       {
         nom: "Université Cadi Ayyad de Marrakech",
         categorie: "academique",
-        logo_path: "/img/partners/uca.png",
+        logo_path: "/img/partners/uca.jpg",
         site_url: "https://www.uca.ma",
         ordre_affichage: 1
       },
       {
         nom: "Faculté de Médecine et de Pharmacie de Marrakech",
         categorie: "academique",
-        logo_path: "/img/partners/fmpm.png",
+        logo_path: "/img/partners/fpm.webp",
         site_url: "https://fmpm.uca.ma",
         ordre_affichage: 2
       },
       {
         nom: "CHU Mohammed VI Marrakech",
         categorie: "clinique",
-        logo_path: "/img/partners/chu.png",
+        logo_path: "/img/partners/chu.webp",
         site_url: "http://www.chumarrakech.ma",
         ordre_affichage: 3
-      },
-      {
-        nom: "Société Marocaine de Technologie Médicale",
-        categorie: "industriel",
-        logo_path: "/img/partners/smtm.png",
-        site_url: "https://amibiomed.ma",
-        ordre_affichage: 4
       }
     ];
 
