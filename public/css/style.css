@@ -1338,7 +1338,7 @@ a:hover {
   text-align: center;
   direction: rtl;
   opacity: 0;
-  animation: splashFade 1s ease 4.2s forwards;
+  animation: splashFade 1s ease 4.6s forwards;
 }
 
 .splash-line {
@@ -1347,7 +1347,7 @@ a:hover {
   width: 0;
   margin: 0.6em auto 0;
   border-radius: 2px;
-  animation: splashGrow 1s ease 4s forwards;
+  animation: splashGrow 1s ease 4.4s forwards;
 }
 
 @keyframes splashUp {
@@ -1443,7 +1443,7 @@ a:hover {
 }
 
 .splash-pulse {
-  animation: splashBeat 1.6s ease-in-out 5.2s infinite;
+  animation: splashBeat 1.6s ease-in-out 5.6s infinite;
 }
 
 @keyframes splashBeat {

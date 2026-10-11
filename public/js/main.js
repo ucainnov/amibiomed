@@ -463,24 +463,6 @@ function initPageTransitions() {
   const overlay = document.getElementById('amibiomed-splash-overlay');
   if (!overlay) return;
 
-  // Si on arrive d'une transition entre pages
-  const isTransitioning = sessionStorage.getItem('amibiomed_page_nav');
-  if (isTransitioning) {
-    sessionStorage.removeItem('amibiomed_page_nav');
-    overlay.classList.remove('d-none');
-    overlay.classList.add('page-transition');
-    const skip = document.getElementById('splash-skip-btn');
-    if (skip) skip.style.display = 'none';
-
-    setTimeout(() => {
-      overlay.classList.add('fade-out');
-      setTimeout(() => {
-        overlay.classList.add('d-none');
-        overlay.classList.remove('page-transition');
-      }, 450);
-    }, 280);
-  }
-
   // Intercepter les clics vers une autre page interne
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a');
@@ -489,7 +471,7 @@ function initPageTransitions() {
     const href = link.getAttribute('href');
     if (!href) return;
 
-    // Ignorer les liens externes, ancres sur la même page, fichiers, tel/mailto
+    // Ignorer les ancres sur la même page, liens externes, mailto, tel, téléchargements
     if (
       href.startsWith('#') ||
       href.startsWith('mailto:') ||
@@ -504,46 +486,34 @@ function initPageTransitions() {
     try {
       const targetUrl = new URL(link.href, window.location.href);
       if (targetUrl.origin !== window.location.origin) return;
-      if (targetUrl.pathname === window.location.pathname && (targetUrl.hash || targetUrl.search === window.location.search)) return;
+      
+      // Même page avec ancre hash : laisser le défilement natif sans rejouer l'intro
+      if (targetUrl.pathname.toLowerCase() === window.location.pathname.toLowerCase() && targetUrl.hash) {
+        return;
+      }
 
-      // Déclencher l'animation logo AMIBIOMED avant navigation
-      e.preventDefault();
-      sessionStorage.setItem('amibiomed_page_nav', 'true');
-
+      // Activer l'overlay immédiatement pour masquer la transition
       overlay.classList.remove('d-none');
       overlay.classList.remove('fade-out');
-      overlay.classList.add('page-transition');
-      const skip = document.getElementById('splash-skip-btn');
-      if (skip) skip.style.display = 'none';
 
-      setTimeout(() => {
-        window.location.href = link.href;
-      }, 350);
+      // Naviguer vers la nouvelle page
+      window.location.href = link.href;
     } catch (err) {
-      // En cas d'URL atypique, navigation native
+      // Navigation native
     }
   });
 }
 
-/* —SPLASH INTRO ANIMATION (PREMIÈRE VISITE)— */
+/* —SPLASH INTRO ANIMATION COMPLÈTE (AMIBIOMED)— */
 function initSplashIntro() {
   const overlay = document.getElementById('amibiomed-splash-overlay');
   if (!overlay) return;
 
-  // Si on est déjà en mode transition entre pages, ne pas rejouer le grand splash de 6s
-  if (sessionStorage.getItem('amibiomed_page_nav')) return;
-
-  const hasSeenIntro = sessionStorage.getItem('amibiomed_intro_shown');
-  if (hasSeenIntro) {
-    if (!overlay.classList.contains('page-transition')) {
-      overlay.classList.add('d-none');
-    }
-    return;
-  }
-
   overlay.classList.remove('d-none');
+  overlay.classList.remove('fade-out');
   document.body.style.overflow = 'hidden';
 
+  // Construction dynamique des lettres avec tempo conforme
   const fr = document.getElementById('splash-fr');
   if (fr) {
     const TEXT = "ASSOCIATION MAROCAINE DE L'INGÉNIERIE BIOMÉDICALE";
@@ -554,7 +524,7 @@ function initSplashIntro() {
       [...w].forEach((c, i) => {
         const s = document.createElement('span');
         s.textContent = c;
-        s.style.animationDelay = (2.4 + (TEXT.indexOf(w) + i) * 0.035) + 's';
+        s.style.animationDelay = (2.8 + (TEXT.indexOf(w) + i) * 0.035) + 's';
         word.appendChild(s);
       });
       fr.appendChild(word);
@@ -569,6 +539,7 @@ function initSplashIntro() {
     });
   }
 
+  // Animation des particules Canvas
   const cv = document.getElementById('splash-fx');
   if (cv) {
     const ctx = cv.getContext('2d');
@@ -577,8 +548,8 @@ function initSplashIntro() {
 
     function size() {
       const d = window.devicePixelRatio || 1;
-      W = cv.clientWidth;
-      H = cv.clientHeight;
+      W = cv.clientWidth || window.innerWidth;
+      H = cv.clientHeight || window.innerHeight;
       cv.width = W * d;
       cv.height = H * d;
       ctx.setTransform(d, 0, 0, d, 0, 0);
@@ -594,7 +565,7 @@ function initSplashIntro() {
     }
 
     function tick() {
-      if (overlay.classList.contains('fade-out')) return;
+      if (overlay.classList.contains('fade-out') || overlay.classList.contains('d-none')) return;
       ctx.clearRect(0, 0, W, H);
       for (let i = 0; i < P.length; i++) {
         const a = P[i];
@@ -625,16 +596,33 @@ function initSplashIntro() {
     tick();
   }
 
+  // Clôture fluide uniquement APRÈS l'animation complète (5.8 secondes)
+  let isClosed = false;
   const closeSplash = () => {
+    if (isClosed) return;
+    isClosed = true;
     overlay.classList.add('fade-out');
     document.body.style.overflow = '';
-    sessionStorage.setItem('amibiomed_intro_shown', 'true');
-    setTimeout(() => overlay.classList.add('d-none'), 850);
+    
+    // Défilement automatique vers ancre éventuelle (#partenaires, etc.)
+    if (window.location.hash) {
+      setTimeout(() => {
+        try {
+          const target = document.querySelector(window.location.hash);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        } catch (e) {}
+      }, 300);
+    }
+
+    setTimeout(() => {
+      overlay.classList.add('d-none');
+    }, 850);
   };
 
   const skipBtn = document.getElementById('splash-skip-btn');
   if (skipBtn) skipBtn.addEventListener('click', closeSplash);
 
+  // Laisser l'animation se terminer COMPLÈTEMENT (5.8 secondes)
   setTimeout(closeSplash, 5800);
 }
 
