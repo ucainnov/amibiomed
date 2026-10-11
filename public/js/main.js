@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   highlightActiveNav();
   initMobileNav();
+  loadSiteSettings();
 });
 
 // Initialisation du Menu Mobile Tiroir (Drawer)
@@ -543,4 +544,35 @@ function initSplashIntro() {
   if (skipBtn) skipBtn.addEventListener('click', closeSplash);
 
   setTimeout(closeSplash, 5800);
+}
+
+// 12. Chargement Dynamique des Paramètres & Médias du Site (Hero & Badges)
+async function loadSiteSettings() {
+  try {
+    const res = await fetch('/api/settings');
+    const data = await res.json();
+    if (data.success && data.settings) {
+      const s = data.settings;
+      const heroImg = document.getElementById('hero-main-img');
+      if (heroImg && s.hero_image) {
+        heroImg.src = s.hero_image;
+      }
+      const b1Title = document.getElementById('hero-badge-1-title');
+      if (b1Title && s.hero_badge_1_title) b1Title.textContent = s.hero_badge_1_title;
+      const b1Sub = document.getElementById('hero-badge-1-subtitle');
+      if (b1Sub && s.hero_badge_1_subtitle) b1Sub.textContent = s.hero_badge_1_subtitle;
+
+      const b2Title = document.getElementById('hero-badge-2-title');
+      if (b2Title && s.hero_badge_2_title) b2Title.textContent = s.hero_badge_2_title;
+      const b2Sub = document.getElementById('hero-badge-2-subtitle');
+      if (b2Sub && s.hero_badge_2_subtitle) b2Sub.textContent = s.hero_badge_2_subtitle;
+
+      const aboutImg = document.getElementById('about-main-img');
+      if (aboutImg && s.about_image) {
+        aboutImg.src = s.about_image;
+      }
+    }
+  } catch (e) {
+    // Silencieux : fallback sur les images intégrées dans le HTML
+  }
 }

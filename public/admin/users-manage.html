@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des Administrateurs - AMIBIOMED Admin</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <style>
+    .user-avatar-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0074BC 0%, #4AA438 100%);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      box-shadow: 0 4px 10px rgba(0, 116, 188, 0.2);
+    }
+    .badge-superadmin {
+      background-color: #DEF7EC;
+      color: #03543F;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid #BCF0DA;
+    }
+    .badge-editor {
+      background-color: #E1EFFE;
+      color: #1E429F;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid #B4C6FC;
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="../img/logo/amibiomed-logo.png" alt="Logo" onerror="this.onerror=null; this.src='../img/logo/logo.png';">
+      <div>
+        <h6 class="m-0 text-white fw-bold">AMIBIOMED</h6>
+        <small class="text-success fw-bold">Back-Office</small>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard KPI</a></li>
+      <li><a href="adhesions-list.html"><i class="fa-solid fa-users-gear"></i> Modération Adhésions</a></li>
+      <li><a href="events-manage.html"><i class="fa-solid fa-calendar-days"></i> Événements & Partenaires</a></li>
+      <li><a href="media-manage.html"><i class="fa-solid fa-photo-film"></i> Médias & Paramètres</a></li>
+      <li><a href="users-manage.html" class="active"><i class="fa-solid fa-user-shield"></i> Administrateurs</a></li>
+      <li><a href="../index.html" target="_blank"><i class="fa-solid fa-globe"></i> Voir le Site Public</a></li>
+    </ul>
+
+    <div class="sidebar-user">
+      <div>
+        <small class="text-muted d-block">Connecté en tant que :</small>
+        <span class="text-white fw-bold small" id="admin-user-name">Administrateur</span>
+      </div>
+      <button id="logout-btn" class="btn btn-sm btn-outline-danger" title="Déconnexion"><i class="fa-solid fa-power-off"></i></button>
+    </div>
+  </aside>
+
+  <!-- Admin Main Wrapper -->
+  <div class="admin-wrapper">
+    <header class="admin-header">
+      <h5 class="m-0 fw-bold"><i class="fa-solid fa-users-gear text-primary me-2"></i>Gestion des Comptes Administrateurs</h5>
+      <button class="btn btn-success btn-sm px-3" data-bs-toggle="modal" data-bs-target="#modal-add-user">
+        <i class="fa-solid fa-user-plus me-1"></i> Créer un Compte
+      </button>
+    </header>
+
+    <main class="admin-content">
+
+      <!-- Alertes Toast -->
+      <div id="users-alert" class="alert d-none mb-4" role="alert"></div>
+
+      <!-- Résumé KPI Comptes -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-4">
+          <div class="kpi-card">
+            <div>
+              <span class="text-muted small fw-bold">TOTAL COMPTES ACTIFS</span>
+              <div class="kpi-value text-dark" id="kpi-total-users">0</div>
+            </div>
+            <div class="kpi-icon kpi-blue"><i class="fa-solid fa-users"></i></div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="kpi-card">
+            <div>
+              <span class="text-muted small fw-bold">SUPERADMINISTRATEURS</span>
+              <div class="kpi-value text-success" id="kpi-superadmins">0</div>
+            </div>
+            <div class="kpi-icon kpi-green"><i class="fa-solid fa-shield-halved"></i></div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="kpi-card">
+            <div>
+              <span class="text-muted small fw-bold">ÉDITEURS & MODÉRATEURS</span>
+              <div class="kpi-value text-primary" id="kpi-editors">0</div>
+            </div>
+            <div class="kpi-icon kpi-yellow"><i class="fa-solid fa-pen-nib"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table des Utilisateurs -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h6 class="m-0 fw-bold"><i class="fa-solid fa-list me-2"></i>Liste des Administrateurs & Rôles d'Accès</h6>
+          <div class="w-25">
+            <input type="text" id="users-search-input" class="form-control form-control-sm" placeholder="Rechercher par nom ou email...">
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table-admin align-middle">
+            <thead>
+              <tr>
+                <th>Utilisateur</th>
+                <th>Adresse E-mail</th>
+                <th>Niveau de Privilège</th>
+                <th>Date de Création</th>
+                <th class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="users-table-body">
+              <tr>
+                <td colspan="5" class="text-center py-4 text-muted">
+                  <i class="fa-solid fa-spinner fa-spin me-2"></i>Chargement des comptes...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL : CRÉER UN ADMINISTRATEUR -->
+  <div class="modal fade" id="modal-add-user" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-plus me-2"></i>Nouveau Compte Administrateur</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        </div>
+        <form id="form-create-user">
+          <div class="modal-body p-4">
+            <div id="create-user-error" class="alert alert-danger d-none py-2 px-3 small mb-3"></div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Nom et Prénom *</label>
+              <input type="text" class="form-control" id="add-user-name" required placeholder="Ex: Dr. Ahmed BENALI">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Adresse E-mail Institutionnelle *</label>
+              <input type="email" class="form-control" id="add-user-email" required placeholder="nom@amibiomed.ma">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Mot de Passe Sécurisé *</label>
+              <input type="password" class="form-control" id="add-user-password" required minlength="6" placeholder="Minimum 6 caractères">
+              <div class="form-text">Le titulaire pourra se connecter directement à l'espace Back-Office.</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Rôle & Privilèges *</label>
+              <select class="form-select" id="add-user-role" required>
+                <option value="editor">Éditeur (Gestion adhésions, événements et médias)</option>
+                <option value="superadmin">Superadministrateur (Accès total + Gestion multi-comptes)</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer bg-light">
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" id="btn-submit-create-user" class="btn btn-success btn-sm px-3">
+              <i class="fa-solid fa-check me-1"></i> Créer le Compte
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL : MODIFIER UN ADMINISTRATEUR -->
+  <div class="modal fade" id="modal-edit-user" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-pen me-2"></i>Modifier le Compte Administrateur</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        </div>
+        <form id="form-edit-user">
+          <input type="hidden" id="edit-user-id">
+          <div class="modal-body p-4">
+            <div id="edit-user-error" class="alert alert-danger d-none py-2 px-3 small mb-3"></div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Nom et Prénom *</label>
+              <input type="text" class="form-control" id="edit-user-name" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Adresse E-mail *</label>
+              <input type="email" class="form-control" id="edit-user-email" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Nouveau Mot de Passe (Laisser vide pour ne pas changer)</label>
+              <input type="password" class="form-control" id="edit-user-password" minlength="6" placeholder="Optionnel : laisser vide pour conserver">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-bold">Rôle & Privilèges *</label>
+              <select class="form-select" id="edit-user-role" required>
+                <option value="editor">Éditeur (Gestion adhésions, événements et médias)</option>
+                <option value="superadmin">Superadministrateur (Accès total + Gestion multi-comptes)</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer bg-light">
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" id="btn-submit-edit-user" class="btn btn-primary btn-sm px-3">
+              <i class="fa-solid fa-floppy-disk me-1"></i> Enregistrer les Modifications
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

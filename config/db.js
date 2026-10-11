@@ -150,6 +150,13 @@ function setupSchemaSqlite() {
       statut TEXT DEFAULT 'non_lu',
       date_envoi DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS site_settings (
+      key TEXT PRIMARY KEY,
+      value TEXT NOT NULL,
+      description TEXT,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
   console.log('✅ [Database] Schéma SQLite appliqué avec succès');
 }
@@ -260,6 +267,32 @@ async function seedInitialData() {
       );
     }
     console.log('🤝 [Database] Partenaires initiaux insérés avec succès');
+  }
+
+  // Seed site_settings si vide
+  try {
+    const settingsCount = await query('SELECT COUNT(*) as count FROM site_settings');
+    const countSet = parseInt(settingsCount.rows[0].count || settingsCount.rows[0]['count(*)'] || 0, 10);
+    if (countSet === 0) {
+      const defaultSettings = [
+        { key: 'hero_image', value: 'img/photos/hero-biomedical.jpg', description: 'Image principale du bloc héroïque (accueil)' },
+        { key: 'hero_badge_1_title', value: 'Excellence Clinique', description: 'Titre badge haut droit' },
+        { key: 'hero_badge_1_subtitle', value: 'Normes & Éthique Médicale', description: 'Sous-titre badge haut droit' },
+        { key: 'hero_badge_2_title', value: 'CHU & Université', description: 'Titre badge bas gauche' },
+        { key: 'hero_badge_2_subtitle', value: 'Partenaires Fondateurs', description: 'Sous-titre badge bas gauche' },
+        { key: 'about_image', value: 'img/photos/hero-biomedical.jpg', description: 'Image de la page à propos' }
+      ];
+
+      for (const s of defaultSettings) {
+        await query(
+          'INSERT INTO site_settings (key, value, description) VALUES ($1, $2, $3)',
+          [s.key, s.value, s.description]
+        );
+      }
+      console.log('⚙️ [Database] Paramètres et médias initiaux configurés avec succès');
+    }
+  } catch (errSettings) {
+    console.warn('⚠️ [Database] Impossible d’initialiser les paramètres par défaut:', errSettings.message);
   }
 }
 

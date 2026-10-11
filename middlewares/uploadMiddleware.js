@@ -75,8 +75,27 @@ const uploadPartnerLogo = multer({
   limits: { fileSize: 3 * 1024 * 1024 }
 });
 
+// Configuration stockage pour les médias et images du site (Hero, À Propos, etc.)
+const storageSiteMedia = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadsDir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    const cleanName = `hero_${Date.now()}_${uuidv4().substring(0, 8)}${ext}`;
+    cb(null, cleanName);
+  }
+});
+
+const uploadSiteMedia = multer({
+  storage: storageSiteMedia,
+  fileFilter,
+  limits: { fileSize: 10 * 1024 * 1024 } // 10 Mo
+});
+
 module.exports = {
   uploadAdhesionDoc,
   uploadEventFiles,
-  uploadPartnerLogo
+  uploadPartnerLogo,
+  uploadSiteMedia
 };

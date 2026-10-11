@@ -6,17 +6,23 @@ const eventController = require('../controllers/eventController');
 const partnerController = require('../controllers/partnerController');
 const contactController = require('../controllers/contactController');
 const dashboardController = require('../controllers/dashboardController');
+const settingsController = require('../controllers/settingsController');
+const userAdminController = require('../controllers/userAdminController');
 
-const { authenticateToken } = require('../middlewares/authMiddleware');
+const { authenticateToken, requireSuperAdmin } = require('../middlewares/authMiddleware');
 const {
   uploadAdhesionDoc,
   uploadEventFiles,
-  uploadPartnerLogo
+  uploadPartnerLogo,
+  uploadSiteMedia
 } = require('../middlewares/uploadMiddleware');
 
 // ==========================================
 // ROUTES PUBLIQUES (FRONT-OFFICE)
 // ==========================================
+
+// Paramètres & Médias publics
+router.get('/settings', settingsController.getPublicSettings);
 
 // Adhésions
 router.post('/adhesions', uploadAdhesionDoc.single('justificatif'), adhesionController.createAdhesion);
@@ -35,6 +41,18 @@ router.post('/contact', contactController.createContact);
 // ==========================================
 // ROUTES SÉCURISÉES (BACK-OFFICE ADMIN)
 // ==========================================
+
+// Paramètres & Médias du Site
+router.get('/admin/settings', authenticateToken, settingsController.getAdminSettings);
+router.put('/admin/settings', authenticateToken, settingsController.updateSettings);
+router.post('/admin/settings/upload-hero', authenticateToken, uploadSiteMedia.single('hero_image'), settingsController.uploadHeroImage);
+router.post('/admin/settings/reset-hero', authenticateToken, settingsController.resetHeroImage);
+
+// Gestion Multi-Comptes Administrateurs
+router.get('/admin/users', authenticateToken, userAdminController.getAllUsers);
+router.post('/admin/users', authenticateToken, requireSuperAdmin, userAdminController.createUser);
+router.put('/admin/users/:id', authenticateToken, requireSuperAdmin, userAdminController.updateUser);
+router.delete('/admin/users/:id', authenticateToken, requireSuperAdmin, userAdminController.deleteUser);
 
 // Dashboard KPI
 router.get('/admin/dashboard', authenticateToken, dashboardController.getStats);
