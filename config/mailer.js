@@ -50,12 +50,14 @@ function getTransporter() {
 /**
  * Envoie un email transactionnel sécurisé
  */
-async function sendEmail({ to, subject, html, text }) {
+async function sendEmail({ to, cc, replyTo, subject, html, text }) {
   try {
     const mailer = getTransporter();
     const mailOptions = {
-      from: process.env.SMTP_FROM || 'AMIBIOMED <amibiomed.contact@gmail.com>',
+      from: process.env.SMTP_FROM || '"AMIBIOMED" <qcmuca@gmail.com>',
       to,
+      ...(cc ? { cc } : {}),
+      ...(replyTo ? { replyTo } : {}),
       subject,
       text: text || '',
       html: html || '',

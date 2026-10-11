@@ -72,8 +72,12 @@ async function createAdhesion(req, res) {
     }).catch(e => console.error(e));
 
     // Email alerte aux administrateurs
+    const adminNotificationEmail = process.env.CONTACT_RECEIVER || 'qcmuca@gmail.com';
+    const adminNotificationCC = process.env.CONTACT_CC || 'amibiomed.contact@gmail.com';
+
     sendEmail({
-      to: process.env.CONTACT_RECEIVER || 'amibiomed.contact@gmail.com',
+      to: adminNotificationEmail,
+      cc: adminNotificationCC,
       subject: `[Nouvelle Adhésion] Dossier #${newId} - ${nom_complet}`,
       html: `<p>Une nouvelle demande d'adhésion a été soumise par <strong>${nom_complet}</strong> (${type_membre}, ${affiliation}). Veuillez vous connecter au Back-Office pour la traiter.</p>`,
       text: `Nouvelle demande d'adhésion par ${nom_complet}`

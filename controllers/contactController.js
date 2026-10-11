@@ -48,12 +48,17 @@ async function createContact(req, res) {
       </div>
     `;
 
+    const targetEmail = process.env.CONTACT_RECEIVER || 'qcmuca@gmail.com';
+    const ccEmail = process.env.CONTACT_CC || 'amibiomed.contact@gmail.com';
+
     sendEmail({
-      to: process.env.CONTACT_RECEIVER || 'amibiomed.contact@gmail.com',
+      to: targetEmail,
+      cc: ccEmail,
+      replyTo: `"${nom_complet.replace(/"/g, '')}" <${email}>`,
       subject: emailAdminSubject,
       html: emailAdminHtml,
       text: `Message de ${nom_complet} (${email}):\n${message}`
-    }).catch(e => console.error(e));
+    }).catch(e => console.error('Erreur notification contact par email:', e));
 
     return res.status(201).json({
       success: true,
