@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" width="300" height="100">
+  <rect width="300" height="100" rx="12" fill="#FFFFFF"/>
+  <circle cx="50" cy="50" r="32" fill="#1F2428"/>
+  <path d="M40 38 L60 38 L50 62 Z" fill="#4AA438"/>
+  <text x="96" y="44" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1F2428">SMTM Maroc</text>
+  <text x="96" y="66" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#64748B">Technologie Médicale</text>
+</svg>

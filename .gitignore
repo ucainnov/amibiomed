@@ -1,0 +1,25 @@
+# Dépendances Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers d'environnement & Clés d'API
+.env
+.env.local
+.env.development
+.env.production
+
+# Base de données SQLite
+data/*.sqlite
+data/*.db
+
+# Téléversements dynamiques des utilisateurs
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Fichiers temporaires & OS
+.DS_Store
+Thumbs.db
+tmp/
+*.tmp

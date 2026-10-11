@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion Administration - AMIBIOMED</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-dark d-flex align-items-center justify-content-center min-vh-100" style="background: linear-gradient(135deg, #1F2428 0%, #0074BC 100%);">
+
+  <div class="container" style="max-width: 440px;">
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+      <div class="bg-dark p-4 text-center border-bottom border-4 border-success">
+        <img src="../img/logo/amibiomed-logo.png" alt="AMIBIOMED" style="height: 55px;" onerror="this.onerror=null; this.src='/img/logo/logo.png';">
+        <h4 class="text-white fw-bold mt-2 m-0">Espace Administration</h4>
+        <small class="text-success fw-bold">AMIBIOMED Back-Office</small>
+      </div>
+
+      <div class="card-body p-4">
+        <div id="login-alert" class="d-none mb-3"></div>
+
+        <form id="admin-login-form">
+          <div class="mb-3">
+            <label for="email" class="form-label fw-bold small text-muted">IDENTIFIANT / EMAIL ADMIN</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light"><i class="fa-solid fa-user-shield text-muted"></i></span>
+              <input type="email" id="email" class="form-control" required placeholder="admin@amibiomed.ma" value="admin@amibiomed.ma">
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="password" class="form-label fw-bold small text-muted">MOT DE PASSE</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light"><i class="fa-solid fa-key text-muted"></i></span>
+              <input type="password" id="password" class="form-control" required placeholder="••••••••" value="Amibiomed@2026!">
+            </div>
+          </div>
+
+          <button type="submit" id="login-btn" class="btn-amibiomed-primary w-100 justify-content-center py-2 fs-6">
+            <i class="fa-solid fa-right-to-bracket me-2"></i> Se Connecter au Back-Office
+          </button>
+        </form>
+      </div>
+
+      <div class="card-footer bg-light text-center py-3">
+        <small class="text-muted"><a href="/" class="text-decoration-none text-muted"><i class="fa-solid fa-arrow-left me-1"></i>Retour au site public</a></small>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/admin.js"></script>
+</body>
+</html>

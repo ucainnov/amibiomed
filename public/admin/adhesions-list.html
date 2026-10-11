@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modération des Adhésions - AMIBIOMED Admin</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="../img/logo/amibiomed-logo.png" alt="Logo" onerror="this.onerror=null; this.src='/img/logo/logo.png';">
+      <div>
+        <h6 class="m-0 text-white fw-bold">AMIBIOMED</h6>
+        <small class="text-success fw-bold">Back-Office</small>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard KPI</a></li>
+      <li><a href="adhesions-list.html" class="active"><i class="fa-solid fa-users-gear"></i> Modération Adhésions</a></li>
+      <li><a href="events-manage.html"><i class="fa-solid fa-calendar-days"></i> Événements & Partenaires</a></li>
+      <li><a href="/" target="_blank"><i class="fa-solid fa-globe"></i> Voir le Site Public</a></li>
+    </ul>
+
+    <div class="sidebar-user">
+      <div>
+        <small class="text-muted d-block">Connecté :</small>
+        <span class="text-white fw-bold small" id="admin-user-name">Administrateur</span>
+      </div>
+      <button id="logout-btn" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-power-off"></i></button>
+    </div>
+  </aside>
+
+  <div class="admin-wrapper">
+    <header class="admin-header">
+      <h5 class="m-0 fw-bold"><i class="fa-solid fa-users-viewfinder text-primary me-2"></i>Gestion & Modération des Demandes d'Adhésion</h5>
+      <button id="export-csv-btn" class="btn btn-sm btn-amibiomed-primary">
+        <i class="fa-solid fa-file-excel me-1"></i> Exporter la Liste (CSV)
+      </button>
+    </header>
+
+    <main class="admin-content">
+      
+      <!-- Filtres et Recherche -->
+      <div class="card border-0 shadow-sm rounded-3 p-3 mb-4">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text bg-light"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+              <input type="text" id="search-adhesions" class="form-control" placeholder="Rechercher par nom, CIN, e-mail ou affiliation...">
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <select id="filter-statut" class="form-select">
+              <option value="all">Tous les statuts</option>
+              <option value="en_attente" selected>En attente de traitement</option>
+              <option value="validee">Validées</option>
+              <option value="rejetee">Rejetées</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tableau Principal des Candidatures -->
+      <div class="admin-card">
+        <div class="table-responsive">
+          <table class="table-admin">
+            <thead>
+              <tr>
+                <th>Réf</th>
+                <th>Candidat / Identité</th>
+                <th>Catégorie</th>
+                <th>Affiliation</th>
+                <th>Date Soumission</th>
+                <th>Statut</th>
+                <th>Actions & Justificatif</th>
+              </tr>
+            </thead>
+            <tbody id="adhesions-tbody">
+              <tr><td colspan="7" class="text-center py-4 text-muted">Chargement des dossiers...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

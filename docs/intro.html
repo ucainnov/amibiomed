@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Association Marocaine de l’Ingénierie Biomédicale – Intro</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&family=Cairo:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;--bg:#fff;--ink:#222;--green:#5aab3a;--red:#e0303f;--blue:#1e6fb5;
+padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1621;--ink:#f2f5f8}}
+:root[data-theme="dark"]{--bg:#0e1621;--ink:#f2f5f8}
+html,body{height:100%;margin:0}
+body{background:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'Montserrat',Arial,sans-serif;overflow:hidden}
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--bg)}
+.bg::before{content:"";position:absolute;inset:-20%;background:radial-gradient(40% 40% at 20% 30%,rgba(90,171,58,.30),transparent 70%),radial-gradient(35% 40% at 80% 25%,rgba(30,111,181,.27),transparent 70%),radial-gradient(40% 40% at 60% 88%,rgba(224,48,63,.20),transparent 70%);filter:blur(24px);animation:drift 14s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(4%,-3%) rotate(6deg) scale(1.12)}}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(128,140,150,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(128,140,150,.16) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(circle at center,#000 15%,transparent 75%);mask-image:radial-gradient(circle at center,#000 15%,transparent 75%);animation:gridmove 20s linear infinite}
+@keyframes gridmove{to{background-position:44px 44px}}
+#fx{position:absolute;inset:0;width:100%;height:100%}
+.sweep{position:absolute;left:0;bottom:10%;width:100%;height:90px}
+.sweep path{fill:none;stroke:var(--red);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;opacity:.45;stroke-dasharray:260 1300;animation:sweep 5s linear 3s infinite;stroke-dashoffset:260}
+@keyframes sweep{to{stroke-dashoffset:-1300}}
+.stage{position:relative;z-index:1;display:flex;align-items:center;gap:2vw;width:min(94vw,1100px);flex-wrap:wrap;justify-content:center}
+svg{width:clamp(130px,22vw,250px);height:auto;overflow:visible}
+.txt{flex:1;min-width:260px}
+.fr{font-weight:600;color:var(--ink);font-size:clamp(15px,3.1vw,38px);line-height:1.15;display:flex;flex-wrap:wrap}
+.fr span{display:inline-block;opacity:0;transform:translateY(24px) scale(.8);animation:up .5s cubic-bezier(.2,.9,.3,1.3) forwards}
+.fr .sp{width:.32em}
+.ar{font-family:'Cairo',Tahoma,Arial,sans-serif;font-weight:600;color:var(--ink);font-size:clamp(14px,2.6vw,32px);margin-top:.5em;text-align:center;direction:rtl;opacity:0;animation:fade 1s ease 4.6s forwards}
+.line{height:3px;background:var(--red);width:0;margin:.6em auto 0;border-radius:2px;animation:grow 1s ease 4.4s forwards}
+@keyframes up{to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0;transform:translateY(12px);letter-spacing:.2em}to{opacity:1;transform:none;letter-spacing:0}}
+@keyframes grow{to{width:100%}}
+.arc,.ecg{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.arc{stroke:var(--green);stroke-width:11;stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.5s ease .1s forwards}
+.ecg{stroke:var(--red);stroke-width:5;stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 1.8s cubic-bezier(.5,0,.3,1) 1.2s forwards}
+.dna{fill:none;stroke:var(--ink);stroke-width:5;stroke-linecap:round;stroke-dasharray:200;stroke-dashoffset:200;animation:draw 1s ease 2.4s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.gear{transform-box:fill-box;transform-origin:center;transform:scale(0);animation:pop .7s cubic-bezier(.2,1.6,.4,1) .3s forwards}
+.gear.g2{animation-delay:.55s}
+.gear g{transform-box:fill-box;transform-origin:center;animation:spin 6s linear infinite}
+.gear.g2 g{animation-direction:reverse}
+@keyframes pop{to{transform:scale(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.drop{fill:var(--blue);opacity:0;transform-box:fill-box;transform-origin:center;animation:drip .8s ease forwards}
+@keyframes drip{0%{opacity:0;transform:translateY(-22px) scale(.3)}70%{opacity:1;transform:translateY(3px) scale(1.1)}100%{opacity:1;transform:none}}
+.pulse{animation:beat 1.6s ease-in-out 5.6s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}8%{transform:scale(1.04)}16%{transform:scale(1)}}
+button{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);border:0;border-radius:20px;padding:8px 16px;font:600 13px Montserrat,Arial,sans-serif;cursor:pointer;opacity:.85}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+  <div class="grid"></div>
+  <canvas id="fx"></canvas>
+  <svg class="sweep" viewBox="0 0 1200 100" preserveAspectRatio="none"><path d="M0 50H260L280 50L295 22L315 82L338 6L360 50H640L660 50L675 22L695 82L718 6L740 50H1000L1020 50L1035 22L1055 82L1078 6L1100 50H1200"/></svg>
+</div>
+<div class="stage" id="stage">
+  <svg viewBox="0 0 280 215" aria-hidden="true">
+    <g class="pulse" style="transform-origin:140px 110px">
+      <path class="arc" d="M98 10C22 32-6 122 38 172C68 204 120 214 172 206"/>
+      <g class="gear g2"><g>
+        <circle cx="17" cy="38" r="17" fill="none" stroke="#8a9096" stroke-width="5" stroke-dasharray="5.34 5.34"/>
+        <circle cx="17" cy="38" r="12" fill="none" stroke="#8a9096" stroke-width="4"/>
+        <circle cx="17" cy="38" r="4.5" fill="none" stroke="#8a9096" stroke-width="3"/>
+      </g></g>
+      <g class="gear"><g>
+        <circle cx="34" cy="13" r="14" fill="none" stroke="var(--blue)" stroke-width="5" stroke-dasharray="5.5 5.5"/>
+        <circle cx="34" cy="13" r="9.5" fill="none" stroke="var(--blue)" stroke-width="4.5"/>
+        <circle cx="34" cy="13" r="3.5" fill="var(--bg)"/>
+      </g></g>
+      <path class="ecg" d="M60 88L80 42L105 140L135 18L150 95L170 20L190 145L215 38L240 92L272 96L234 101"/>
+      <path class="dna" d="M62 158Q115 140 175 206"/>
+      <ellipse class="drop" style="animation-delay:3.1s" cx="78" cy="168" rx="4" ry="6"/>
+      <ellipse class="drop" style="animation-delay:3.3s" cx="94" cy="172" rx="4" ry="6"/>
+      <ellipse class="drop" style="animation-delay:3.5s" cx="110" cy="178" rx="4" ry="6"/>
+      <ellipse class="drop" style="animation-delay:3.7s" cx="126" cy="186" rx="4" ry="6"/>
+      <ellipse class="drop" style="animation-delay:3.9s" cx="142" cy="196" rx="4" ry="6"/>
+    </g>
+  </svg>
+  <div class="txt">
+    <div class="fr" id="fr" aria-label="ASSOCIATION MAROCAINE DE L’INGÉNIERIE BIOMÉDICALE"></div>
+    <div class="ar" lang="ar">الجمعية المغربية للهندسة البيوطبية</div>
+    <div class="line"></div>
+  </div>
+</div>
+<button id="replay">↻ Replay</button>
+<script>
+const TEXT="ASSOCIATION MAROCAINE DE L’INGÉNIERIE BIOMÉDICALE";
+const fr=document.getElementById('fr');
+function build(){
+  fr.innerHTML='';
+  TEXT.split(' ').forEach((w,wi,arr)=>{
+    const word=document.createElement('div');word.style.display='flex';
+    [...w].forEach((c,i)=>{const s=document.createElement('span');s.textContent=c;
+      s.style.animationDelay=(2.8+(TEXT.indexOf(w)+i)*0.035)+'s';word.appendChild(s)});
+    fr.appendChild(word);
+    if(wi<arr.length-1){const sp=document.createElement('span');sp.className='sp';sp.innerHTML='&nbsp;';sp.style.animation='none';sp.style.opacity=1;fr.appendChild(sp)}
+  });
+}
+build();
+(function(){
+  const cv=document.getElementById('fx'),ctx=cv.getContext('2d');
+  let W,H,P=[];const cols=['90,171,58','30,111,181','224,48,63'];
+  function size(){const d=window.devicePixelRatio||1;W=cv.clientWidth;H=cv.clientHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);
+    const n=Math.min(70,Math.round(W*H/16000));P=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*2.2+1,c:cols[Math.floor(Math.random()*3)]}))}
+  function tick(){ctx.clearRect(0,0,W,H);
+    for(let i=0;i<P.length;i++){const a=P[i];a.x+=a.vx;a.y+=a.vy;if(a.x<0||a.x>W)a.vx*=-1;if(a.y<0||a.y>H)a.vy*=-1;
+      for(let j=i+1;j<P.length;j++){const b=P[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);
+        if(d<130){ctx.strokeStyle='rgba('+a.c+','+(0.22*(1-d/130))+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}
+      ctx.fillStyle='rgba('+a.c+',.55)';ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,6.283);ctx.fill()}
+    requestAnimationFrame(tick)}
+  size();addEventListener('resize',size);tick();
+})();
+document.getElementById('replay').onclick=()=>{
+  const st=document.getElementById('stage');const p=st.parentNode;
+  const clone=st.cloneNode(true);p.replaceChild(clone,st);
+  window.fr=clone.querySelector('#fr');
+  const old=document.getElementById('fr');
+};
+</script>
+</body>
+</html>

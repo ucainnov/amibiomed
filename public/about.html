@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Organigramme et Présentation de l'Association Marocaine de l'Ingénierie Biomédicale (AMIBIOMED). Bureau Actuel (2024-Présent) et Bureau Fondateur (2017-2024).">
+  <title>À Propos & Organigramme - AMIBIOMED</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header Flottant Pilule Style UCA Innov -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="index.html" class="brand" aria-label="AMIBIOMED - Accueil">
+        <img src="img/logo/amibiomed-logo.png" alt="AMIBIOMED" class="brand-logo">
+      </a>
+
+      <nav class="header-nav d-none d-lg-flex" aria-label="Navigation principale">
+        <a href="index.html" class="nav-link-pill" data-i18n="nav_home"><i class="fa-solid fa-house"></i>Accueil</a>
+        <a href="about.html" class="nav-link-pill" data-i18n="nav_about"><i class="fa-solid fa-circle-info"></i>À Propos</a>
+        <a href="about.html#organigramme" class="nav-link-pill" data-i18n="nav_organigram"><i class="fa-solid fa-sitemap"></i>Organigramme</a>
+        <a href="events.html" class="nav-link-pill" data-i18n="nav_events"><i class="fa-solid fa-calendar-days"></i>Événements</a>
+        <a href="contact.html" class="nav-link-pill" data-i18n="nav_contact"><i class="fa-solid fa-envelope"></i>Contact</a>
+      </nav>
+
+      <div class="d-flex align-items-center gap-2 flex-shrink-0">
+        <!-- Sélecteur de langue i18n -->
+        <div class="lang-selector-pill">
+          <button type="button" class="lang-btn active" data-lang="fr" title="Français">FR</button>
+          <span class="lang-sep">|</span>
+          <button type="button" class="lang-btn" data-lang="ar" title="العربية">AR</button>
+          <span class="lang-sep">|</span>
+          <button type="button" class="lang-btn" data-lang="en" title="English">EN</button>
+        </div>
+
+        <a href="admin/login.html" class="nav-connexion-link d-none d-md-inline" data-i18n="nav_login">Connexion</a>
+        <a href="adhesion.html" class="btn-amibiomed-primary" id="btn-header-devenir-membre">
+          <i class="fa-solid fa-id-card"></i>
+          <span data-i18n="btn_join">Devenir Membre</span>
+        </a>
+        <button class="nav-toggle-btn" id="mobile-nav-toggle" aria-label="Ouvrir le menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tiroir de Navigation Mobile & Tablette -->
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+  <aside class="mobile-nav-drawer" id="mobile-nav-drawer" aria-hidden="true">
+    <div class="mobile-nav-header">
+      <img src="img/logo/amibiomed-logo.png" alt="AMIBIOMED" style="height:36px; object-fit:contain;">
+      <button class="btn btn-sm btn-light rounded-circle" id="mobile-nav-close" aria-label="Fermer le menu">
+        <i class="fa-solid fa-xmark fa-lg"></i>
+      </button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link" data-i18n="nav_home"><i class="fa-solid fa-house"></i> Accueil</a>
+      <a href="about.html" class="mobile-nav-link" data-i18n="nav_about"><i class="fa-solid fa-circle-info"></i> À Propos</a>
+      <a href="about.html#organigramme" class="mobile-nav-link" data-i18n="nav_organigram"><i class="fa-solid fa-sitemap"></i> Organigramme</a>
+      <a href="events.html" class="mobile-nav-link" data-i18n="nav_events"><i class="fa-solid fa-calendar-days"></i> Événements</a>
+      <a href="contact.html" class="mobile-nav-link" data-i18n="nav_contact"><i class="fa-solid fa-envelope"></i> Contact</a>
+    </div>
+    <div class="mobile-nav-footer">
+      <a href="adhesion.html" class="btn-amibiomed-primary w-100 justify-content-center py-2 mb-2">
+        <i class="fa-solid fa-id-card me-2"></i> <span data-i18n="btn_join">Devenir Membre</span>
+      </a>
+      <a href="admin/login.html" class="btn btn-sm btn-outline-secondary w-100 text-center py-2" data-i18n="nav_admin_login">
+        Connexion Administration
+      </a>
+    </div>
+  </aside>
+
+  <!-- Ligne d'accentuation dynamique ECG -->
+  <div class="ecg-line-container">
+    <div class="ecg-line-pulse"></div>
+  </div>
+
+  <!-- Subpage Header Lumineux (Fond Blanc / Pas de Noir) -->
+  <section class="subpage-hero">
+    <div class="container py-3 text-center">
+      <span class="badge bg-white text-primary border border-primary px-3 py-2 rounded-pill fw-bold text-uppercase mb-3 shadow-sm">Institution & Gouvernance</span>
+      <h1 class="fw-bold display-5 text-dark">À Propos d'AMIBIOMED</h1>
+      <p class="lead text-muted max-w-700 mx-auto fs-6">
+        Historique, vision scientifique et organigramme hiérarchique de l'Association Marocaine de l'Ingénierie Biomédicale.
+      </p>
+    </div>
+  </section>
+
+  <!-- Historique et Vision (Fond Blanc) -->
+  <section class="section-white">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <span class="badge bg-white text-success border border-success px-3 py-2 rounded-pill fw-bold text-uppercase mb-2 shadow-sm">Historique</span>
+          <h2 class="fw-bold fs-1 mb-4">Fondée en 2017 pour l'Excellence Biomédicale au Maroc</h2>
+          <p class="text-muted">
+            L'<strong>Association Marocaine de l'Ingénierie Biomédicale (AMIBIOMED)</strong> est née de la volonté d'universitaires de l'Université Cadi Ayyad et de praticiens du Centre Hospitalier Universitaire Mohammed VI de structurer le corps des ingénieurs et chercheurs biomédicaux à l'échelle du Royaume.
+          </p>
+          <p class="text-muted">
+            Notre vocation est de veiller à l'alignement strict entre la haute technologie médicale et les exigences de la santé publique marocaine, guidée par notre devise éthique et scientifique : « Technologie • Santé • Éthique ».
+          </p>
+          
+          <div class="row g-3 mt-3">
+            <div class="col-6">
+              <div class="p-3 bg-light rounded-3 border-start border-4 border-success shadow-sm">
+                <h6 class="fw-bold mb-1 text-dark">Technologie</h6>
+                <small class="text-muted">Maîtrise et maintenance des équipements de pointe.</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 bg-light rounded-3 border-start border-4 border-danger shadow-sm">
+                <h6 class="fw-bold mb-1 text-dark">Santé & Éthique</h6>
+                <small class="text-muted">Sécurité du patient et conformité internationale.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="position-relative">
+            <img src="img/photos/hero-biomedical.jpg" alt="Laboratoire AMIBIOMED" class="img-fluid rounded-4 shadow-lg border">
+            <div class="position-absolute bottom-0 start-0 bg-white p-3 rounded-3 shadow-md m-3 border-start border-4 border-primary">
+              <span class="fw-bold text-dark d-block">Université Cadi Ayyad & CHU</span>
+              <small class="text-muted">Berceau historique de l'AMIBIOMED (Marrakech)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORGANIGRAMME HIÉRARCHIQUE (Style Inspiré du modèle UCA Organigramme) -->
+  <section class="section-light" id="organigramme">
+    <div class="container-fluid px-4">
+      <div class="text-center max-w-700 mx-auto mb-5">
+        <span class="badge bg-white text-danger border border-danger px-3 py-2 rounded-pill fw-bold text-uppercase mb-2 shadow-sm">Structure de Direction</span>
+        <h2 class="fw-bold fs-1">Organigramme du Bureau Actuel (2024 - Présent)</h2>
+        <p class="text-muted">Gouvernance exécutive et pôles d'intervention des membres du bureau de l'AMIBIOMED.</p>
+      </div>
+
+      <div class="d-lg-none text-center mb-3">
+        <span class="badge bg-white text-muted border px-3 py-2 rounded-pill shadow-sm">
+          <i class="fa-solid fa-arrows-left-right text-primary me-1"></i> Faites glisser l'organigramme horizontalement
+        </span>
+      </div>
+
+      <div class="organigram-wrapper">
+        <div class="organigram-tree">
+          
+          <!-- NIVEAU 1 : PRÉSIDENCE -->
+          <div class="organigram-node president mb-4">
+            <span class="node-badge badge-gold">
+              <i class="fa-solid fa-crown"></i> Présidence
+            </span>
+            <div class="node-title">Président de l'Association</div>
+            <div class="node-name">Mohamed Aziz BSISS</div>
+            <small class="text-muted d-block mt-1"><i class="fa-solid fa-user-shield me-1"></i>Direction Générale & Stratégie</small>
+          </div>
+
+          <div class="organigram-level-connector"></div>
+          <div class="organigram-horizontal-connector mb-4"></div>
+
+          <!-- NIVEAU 2 : PÔLES EXÉCUTIFS -->
+          <div class="row w-100 justify-content-center g-4">
+            
+            <!-- Vice-Président -->
+            <div class="col-md-6 col-lg-3">
+              <div class="organigram-node text-center h-100 border-top border-4 border-success">
+                <span class="node-badge badge-green">
+                  <i class="fa-solid fa-user-tie"></i> Vice-Présidence
+                </span>
+                <div class="node-title">Vice-Président</div>
+                <div class="node-name">Mohamed AMENAOU</div>
+                <small class="text-muted d-block mt-2">Relations Institutionnelles & Projets</small>
+              </div>
+            </div>
+
+            <!-- Secrétariat -->
+            <div class="col-md-6 col-lg-3">
+              <div class="organigram-node text-center h-100 border-top border-4 border-primary">
+                <span class="node-badge badge-blue">
+                  <i class="fa-solid fa-file-signature"></i> Secrétariat Général
+                </span>
+                <div class="node-title">Secrétaire Général</div>
+                <div class="node-name">Mustapha BOUK</div>
+                <div class="border-top my-2 pt-2">
+                  <small class="text-muted d-block">Secrétaire Générale Adjointe :</small>
+                  <strong class="text-dark">Oumaima ELGHADOUINI</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trésorerie -->
+            <div class="col-md-6 col-lg-3">
+              <div class="organigram-node text-center h-100 border-top border-4 border-danger">
+                <span class="node-badge badge-red">
+                  <i class="fa-solid fa-coins"></i> Trésorerie
+                </span>
+                <div class="node-title">Trésorier Général</div>
+                <div class="node-name">Mohamed Amine CHADI</div>
+                <div class="border-top my-2 pt-2">
+                  <small class="text-muted d-block">Trésorière Adjointe :</small>
+                  <strong class="text-dark">Maroua ICHALHANE</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Assesseur -->
+            <div class="col-md-6 col-lg-3">
+              <div class="organigram-node text-center h-100 border-top border-4 border-secondary">
+                <span class="node-badge badge-slate">
+                  <i class="fa-solid fa-clipboard-check"></i> Assesseur
+                </span>
+                <div class="node-title">Assesseur Chargé des Projets</div>
+                <div class="node-name">Ahmed AAMOUCHE</div>
+                <small class="text-muted d-block mt-2">Suivi Technique & Partenariats</small>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tableau d'Honneur : Bureau Fondateur (2017 - 2024) -->
+  <section class="section-white">
+    <div class="container">
+      <div class="text-center max-w-700 mx-auto mb-5">
+        <span class="badge bg-white text-dark border px-3 py-2 rounded-pill fw-bold text-uppercase mb-2 shadow-sm">Patrimoine Historique</span>
+        <h2 class="fw-bold fs-1">Membres Fondateurs (2017 - 2024)</h2>
+        <p class="text-muted">Hommage aux pionniers affiliés à l'Université Cadi Ayyad et aux hôpitaux universitaires ayant porté la création de l'AMIBIOMED.</p>
+      </div>
+
+      <div class="table-responsive bg-white rounded-4 shadow-sm border p-4">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Mandat</th>
+              <th>Membre Fondateur</th>
+              <th>Qualité / Titre</th>
+              <th>Affiliation Institutionnelle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge bg-secondary">2017 - 2024</span></td>
+              <td><strong>Pr. Mohamed Aziz BSISS</strong></td>
+              <td>Enseignant-Chercheur & Expert Biomédical</td>
+              <td>Université Cadi Ayyad, Marrakech</td>
+            </tr>
+            <tr>
+              <td><span class="badge bg-secondary">2017 - 2024</span></td>
+              <td><strong>Ing. Mohamed AMENAOU</strong></td>
+              <td>Ingénieur Biomédical Hospitalier</td>
+              <td>CHU Mohammed VI, Marrakech</td>
+            </tr>
+            <tr>
+              <td><span class="badge bg-secondary">2017 - 2024</span></td>
+              <td><strong>Dr. Mustapha BOUK</strong></td>
+              <td>Chercheur en Instrumentation Médicale</td>
+              <td>Faculté des Sciences Semlalia</td>
+            </tr>
+            <tr>
+              <td><span class="badge bg-secondary">2017 - 2024</span></td>
+              <td><strong>Ing. Mohamed Amine CHADI</strong></td>
+              <td>Expert en Maintenance Équipements Médicaux</td>
+              <td>Partenaire Industriel Biomédical</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER PREMIUM BLANC -->
+  <footer class="footer-amibiomed-white">
+    <div class="container">
+      <div class="row g-5">
+
+        <!-- Logo + Description + Réseaux Sociaux -->
+        <div class="col-lg-4">
+          <a href="index.html">
+            <img src="img/logo/amibiomed-logo.png" alt="AMIBIOMED" style="height:50px; width:auto; object-fit:contain;" class="mb-3">
+          </a>
+          <p class="small" style="color:#475569; line-height:1.75; max-width:300px;">
+            Association Marocaine de l'Ingénierie Biomédicale, fondée en 2017. Plateforme nationale d'expertise et d'échange pour les technologies médicales et hospitalières.
+          </p>
+          <div class="footer-devise-badge">
+            <i class="fa-solid fa-quote-left" style="color:#4AA438; font-size:1rem;"></i>
+            <span>Technologie &bull; Santé &bull; Éthique</span>
+          </div>
+          <div class="footer-social-links">
+            <a href="#" class="footer-social-btn" title="Facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="footer-social-btn li" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="footer-social-btn yt" title="YouTube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" class="footer-social-btn" title="Twitter/X" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="col-6 col-lg-2">
+          <h5>Navigation</h5>
+          <ul class="footer-links-clean">
+            <li><a href="index.html" data-i18n="nav_home">Accueil</a></li>
+            <li><a href="about.html" data-i18n="nav_about">À Propos</a></li>
+            <li><a href="about.html#organigramme" data-i18n="nav_organigram">Organigramme</a></li>
+            <li><a href="events.html" data-i18n="nav_events">Événements</a></li>
+            <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Coordonnées -->
+        <div class="col-6 col-lg-3">
+          <h5>Contact</h5>
+          <ul class="footer-links-clean">
+            <li style="color:#475569;">
+              <i class="fa-solid fa-location-dot me-2" style="color:#0074BC;"></i>
+              Faculté de Médecine et de Pharmacie, Marrakech
+            </li>
+            <li>
+              <a href="mailto:amibiomed.contact@gmail.com" style="color:#475569;">
+                <i class="fa-solid fa-envelope me-2" style="color:#0074BC;"></i>
+                amibiomed.contact@gmail.com
+              </a>
+            </li>
+            <li style="color:#475569;">
+              <i class="fa-solid fa-globe me-2" style="color:#0074BC;"></i>
+              www.amibiomed.ma
+            </li>
+          </ul>
+        </div>
+
+        <!-- Espace Membre -->
+        <div class="col-lg-3">
+          <h5>Espace Membre</h5>
+          <p class="small" style="color:#64748B; line-height:1.65; margin-bottom:18px;">
+            Rejoignez le réseau national des ingénieurs et chercheurs biomédicaux. Candidature 100&nbsp;% en ligne.
+          </p>
+          <a href="adhesion.html" class="btn-amibiomed-primary" style="display:inline-flex; width:100%; justify-content:center;">
+            <i class="fa-solid fa-paper-plane me-2"></i> Soumettre ma candidature
+          </a>
+        </div>
+      </div>
+
+      <!-- Barre bottom -->
+      <div class="footer-bottom-clean d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <span>&copy; 2025&ndash;2026 AMIBIOMED &mdash; Tous droits réservés.</span>
+        <div class="d-flex gap-3 align-items-center">
+          <a href="admin/login.html" style="color:#94A3B8; font-size:0.83rem;">Administration</a>
+          <span style="color:#CBD5E1;">|</span>
+          <span style="color:#CBD5E1; font-size:0.83rem;">Marrakech, Maroc</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

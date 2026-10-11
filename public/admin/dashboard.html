@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de Bord Administration - AMIBIOMED</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="../img/logo/amibiomed-logo.png" alt="Logo" onerror="this.onerror=null; this.src='/img/logo/logo.png';">
+      <div>
+        <h6 class="m-0 text-white fw-bold">AMIBIOMED</h6>
+        <small class="text-success fw-bold">Back-Office</small>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li><a href="dashboard.html" class="active"><i class="fa-solid fa-chart-line"></i> Dashboard KPI</a></li>
+      <li><a href="adhesions-list.html"><i class="fa-solid fa-users-gear"></i> Modération Adhésions</a></li>
+      <li><a href="events-manage.html"><i class="fa-solid fa-calendar-days"></i> Événements & Partenaires</a></li>
+      <li><a href="/" target="_blank"><i class="fa-solid fa-globe"></i> Voir le Site Public</a></li>
+    </ul>
+
+    <div class="sidebar-user">
+      <div>
+        <small class="text-muted d-block">Connecté en tant que :</small>
+        <span class="text-white fw-bold small" id="admin-user-name">Administrateur</span>
+      </div>
+      <button id="logout-btn" class="btn btn-sm btn-outline-danger" title="Déconnexion"><i class="fa-solid fa-power-off"></i></button>
+    </div>
+  </aside>
+
+  <!-- Admin Main Wrapper -->
+  <div class="admin-wrapper">
+    <header class="admin-header">
+      <h5 class="m-0 fw-bold"><i class="fa-solid fa-chart-pie text-primary me-2"></i>Vue d'Ensemble des Performances</h5>
+      <span class="badge bg-success px-3 py-2 rounded-pill"><i class="fa-solid fa-circle me-1"></i> Système Actif & Sécurisé</span>
+    </header>
+
+    <main class="admin-content">
+      
+      <!-- Cartes KPI -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="kpi-card">
+            <div>
+              <span class="text-muted small fw-bold">TOTAL ADHÉSIONS</span>
+              <div class="kpi-value" id="kpi-total-adhesions">0</div>
+            </div>
+            <div class="kpi-icon kpi-blue"><i class="fa-solid fa-users"></i></div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="kpi-card">
+            <div>
+              <span class="text-muted small fw-bold">EN ATTENTE</span>
+              <div class="kpi-value text-warning" id="kpi-pending-adhesions">0</div>
+            </div>
+            <div class="kpi-icon kpi-yellow"><i class="fa-solid fa-clock"></i></div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="kpi-card">
+            <div>
+              <span class="text-muted small fw-bold">DOSSIERS VALIDÉS</span>
+              <div class="kpi-value text-success" id="kpi-validated-adhesions">0</div>
+            </div>
+            <div class="kpi-icon kpi-green"><i class="fa-solid fa-check-circle"></i></div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="kpi-card">
+            <div>
+              <span class="text-muted small fw-bold">ÉVÉNEMENTS PUBLIÉS</span>
+              <div class="kpi-value" id="kpi-events-count">0</div>
+            </div>
+            <div class="kpi-icon kpi-red"><i class="fa-solid fa-calendar-star"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tableau des Dernières Adhésions -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h6 class="m-0 fw-bold"><i class="fa-solid fa-clock-rotate-left text-muted me-2"></i>Dernières Candidatures Reçues</h6>
+          <a href="adhesions-list.html" class="btn btn-sm btn-amibiomed-outline">Gérer toutes les adhésions</a>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table-admin">
+            <thead>
+              <tr>
+                <th>Réf</th>
+                <th>Candidat</th>
+                <th>Catégorie</th>
+                <th>Affiliation</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody id="recent-adhesions-tbody">
+              <!-- Chargé via JS -->
+              <tr><td colspan="5" class="text-center py-4 text-muted">Chargement...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>
