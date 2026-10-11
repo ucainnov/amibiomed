@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestion Événements & Partenaires - AMIBIOMED Admin</title>
+  <title>Gestion des Activités & Types Paramétrables - AMIBIOMED Admin</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -24,7 +24,7 @@
     <ul class="sidebar-menu">
       <li><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard KPI</a></li>
       <li><a href="adhesions-list.html"><i class="fa-solid fa-users-gear"></i> Modération Adhésions</a></li>
-      <li><a href="events-manage.html" class="active"><i class="fa-solid fa-calendar-days"></i> Événements & Partenaires</a></li>
+      <li><a href="events-manage.html" class="active"><i class="fa-solid fa-calendar-days"></i> Activités & Partenaires</a></li>
       <li><a href="media-manage.html"><i class="fa-solid fa-photo-film"></i> Médias & Paramètres</a></li>
       <li><a href="users-manage.html"><i class="fa-solid fa-user-shield"></i> Administrateurs</a></li>
       <li><a href="../index.html" target="_blank"><i class="fa-solid fa-globe"></i> Voir le Site Public</a></li>
@@ -41,20 +41,20 @@
 
   <div class="admin-wrapper">
     <header class="admin-header">
-      <h5 class="m-0 fw-bold"><i class="fa-solid fa-pen-to-square text-primary me-2"></i>Gestion des Conférences & Partenariats</h5>
+      <h5 class="m-0 fw-bold"><i class="fa-solid fa-pen-to-square text-primary me-2"></i>Gestion des Activités & Types Paramétrables</h5>
     </header>
 
     <main class="admin-content">
       
       <div class="row g-4">
         
-        <!-- SECTION 1 : GESTION ÉVÉNEMENTS -->
-        <div class="col-lg-7">
+        <!-- SECTION 1 : GESTION ACTIVITÉS -->
+        <div class="col-lg-8">
           <div class="admin-card">
             <div class="admin-card-header">
-              <h6 class="m-0 fw-bold"><i class="fa-solid fa-calendar-plus text-primary me-2"></i>Conférences & Manifestations</h6>
+              <h6 class="m-0 fw-bold"><i class="fa-solid fa-calendar-plus text-primary me-2"></i>Nos Activités Scientifiques</h6>
               <button class="btn btn-sm btn-amibiomed-primary" data-bs-toggle="modal" data-bs-target="#addEventModal">
-                <i class="fa-solid fa-plus me-1"></i> Nouvel Événement
+                <i class="fa-solid fa-plus me-1"></i> Nouvelle Activité
               </button>
             </div>
 
@@ -64,21 +64,49 @@
                   <tr>
                     <th>Image</th>
                     <th>Titre</th>
+                    <th>Type d'Activité</th>
                     <th>Date</th>
-                    <th>Statut</th>
+                    <th>Action / Statut</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody id="events-tbody">
-                  <tr><td colspan="5" class="text-center py-4 text-muted">Chargement des événements...</td></tr>
+                  <tr><td colspan="6" class="text-center py-4 text-muted">Chargement des activités...</td></tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
 
-        <!-- SECTION 2 : GESTION PARTENAIRES -->
-        <div class="col-lg-5">
+        <!-- SECTION 2 : TYPES D'ACTIVITÉS PARAMÉTRABLES -->
+        <div class="col-lg-4">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h6 class="m-0 fw-bold"><i class="fa-solid fa-tags text-success me-2"></i>Types Paramétrables</h6>
+              <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addActivityTypeModal">
+                <i class="fa-solid fa-plus me-1"></i> Nouveau Type
+              </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table-admin">
+                <thead>
+                  <tr>
+                    <th>Icône</th>
+                    <th>Nom du Type</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="activity-types-tbody">
+                  <tr><td colspan="3" class="text-center py-4 text-muted">Chargement des types...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3 : GESTION PARTENAIRES -->
+        <div class="col-12">
           <div class="admin-card">
             <div class="admin-card-header">
               <h6 class="m-0 fw-bold"><i class="fa-solid fa-handshake text-success me-2"></i>Partenaires Répertoire</h6>
@@ -110,20 +138,26 @@
     </main>
   </div>
 
-  <!-- MODAL AJOUT ÉVÉNEMENT -->
+  <!-- MODAL AJOUT ACTIVITÉ -->
   <div class="modal fade" id="addEventModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title fw-bold"><i class="fa-solid fa-calendar-plus me-2"></i>Publier une Conférence / Manifestation</h5>
+          <h5 class="modal-title fw-bold"><i class="fa-solid fa-calendar-plus me-2"></i>Créer une Activité / Événement</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <form id="add-event-form" enctype="multipart/form-data">
           <div class="modal-body">
             <div class="row g-3">
-              <div class="col-12">
-                <label class="form-label fw-bold">Titre de la Conférence *</label>
-                <input type="text" name="titre" class="form-control" required placeholder="Ex: Congrès National d'Ingénierie Biomédicale 2026">
+              <div class="col-md-8">
+                <label class="form-label fw-bold">Titre de l'Activité *</label>
+                <input type="text" name="titre" class="form-control" required placeholder="Ex: Journées Scientifiques 2025">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-bold">Type d'Activité *</label>
+                <select name="type_activite" id="event-type-select" class="form-select" required>
+                  <option value="">Sélectionner un type...</option>
+                </select>
               </div>
               <div class="col-md-6">
                 <label class="form-label fw-bold">Date et Heure *</label>
@@ -134,30 +168,80 @@
                 <input type="text" name="lieu" class="form-control" required placeholder="Ex: FMPM Marrakech">
               </div>
               <div class="col-md-6">
-                <label class="form-label fw-bold">Statut de l'Événement</label>
+                <label class="form-label fw-bold">Statut de l'Activité</label>
                 <select name="statut" class="form-select">
                   <option value="a_venir">À venir</option>
                   <option value="en_cours">En cours</option>
-                  <option value="realise">Réalisé (Archives)</option>
+                  <option value="realise">Réalisé</option>
                 </select>
               </div>
               <div class="col-md-6">
-                <label class="form-label fw-bold">Image de Couverture (Affiche)</label>
+                <label class="form-label fw-bold">Libellé Action / Badge (Optionnel)</label>
+                <input type="text" name="lien_action" class="form-control" placeholder="Ex: Participez avec nous! ou Réalisé ou En cours">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Image de Couverture</label>
                 <input type="file" name="image_cover" class="form-control" accept="image/*">
               </div>
-              <div class="col-12">
-                <label class="form-label fw-bold">Document Programme PDF</label>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Programme PDF</label>
                 <input type="file" name="programme_pdf" class="form-control" accept=".pdf">
               </div>
               <div class="col-12">
                 <label class="form-label fw-bold">Description Détaillée *</label>
-                <textarea name="description" class="form-control" rows="4" required placeholder="Présentation du programme scientifique..."></textarea>
+                <textarea name="description" class="form-control" rows="3" required placeholder="Ex: Journée IA et Santé dédiée aux applications de l'intelligence artificielle en médecine..."></textarea>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
-            <button type="submit" class="btn-amibiomed-primary">Enregistrer et Publier</button>
+            <button type="submit" class="btn-amibiomed-primary">Enregistrer l'Activité</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL AJOUT TYPE D'ACTIVITÉ PARAMÉTRABLE -->
+  <div class="modal fade" id="addActivityTypeModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold"><i class="fa-solid fa-tag me-2"></i>Nouveau Type d'Activité Paramétrable</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="add-activity-type-form">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label fw-bold">Nom du Type *</label>
+                <input type="text" name="nom" class="form-control" required placeholder="Ex: Journées Scientifiques, Ateliers de Formation...">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Icône FontAwesome</label>
+                <select name="icone" class="form-select">
+                  <option value="fa-robot">🤖 Robot / IA (fa-robot)</option>
+                  <option value="fa-globe">🌐 Globe / International (fa-globe)</option>
+                  <option value="fa-users">👥 Groupe / Formation (fa-users)</option>
+                  <option value="fa-stethoscope">🩺 Stéthoscope / Clinique (fa-stethoscope)</option>
+                  <option value="fa-graduation-cap">🎓 Académique (fa-graduation-cap)</option>
+                  <option value="fa-microchip">💻 Technologie (fa-microchip)</option>
+                  <option value="fa-calendar-check">📅 Calendrier (fa-calendar-check)</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Couleur Badge</label>
+                <input type="color" name="couleur_badge" class="form-control form-control-color w-100" value="#2D5A27">
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-bold">Description (Optionnelle)</label>
+                <textarea name="description" class="form-control" rows="2" placeholder="Brève note sur ce type d'activité..."></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-success">Créer le Type</button>
           </div>
         </form>
       </div>

@@ -72,7 +72,8 @@
         <a href="index.html" class="nav-link-pill" data-i18n="nav_home"><i class="fa-solid fa-house"></i>Accueil</a>
         <a href="about.html" class="nav-link-pill" data-i18n="nav_about"><i class="fa-solid fa-circle-info"></i>À Propos</a>
         <a href="about.html#organigramme" class="nav-link-pill" data-i18n="nav_organigram"><i class="fa-solid fa-sitemap"></i>Organigramme</a>
-        <a href="events.html" class="nav-link-pill" data-i18n="nav_events"><i class="fa-solid fa-calendar-days"></i>Événements</a>
+        <a href="activities.html" class="nav-link-pill" data-i18n="nav_activities"><i class="fa-solid fa-calendar-days"></i>Activités</a>
+        <a href="index.html#partenaires" class="nav-link-pill" data-i18n="nav_partners"><i class="fa-solid fa-handshake"></i>Partenaires</a>
         <a href="contact.html" class="nav-link-pill" data-i18n="nav_contact"><i class="fa-solid fa-envelope"></i>Contact</a>
       </nav>
 
@@ -86,7 +87,6 @@
           <button type="button" class="lang-btn" data-lang="en" title="English">EN</button>
         </div>
 
-        <a href="admin/login.html" class="nav-connexion-link d-none d-md-inline" data-i18n="nav_login">Connexion</a>
         <a href="adhesion.html" class="btn-amibiomed-primary" id="btn-header-devenir-membre">
           <i class="fa-solid fa-id-card"></i>
           <span data-i18n="btn_join">Devenir Membre</span>
@@ -111,15 +111,13 @@
       <a href="index.html" class="mobile-nav-link" data-i18n="nav_home"><i class="fa-solid fa-house"></i> Accueil</a>
       <a href="about.html" class="mobile-nav-link" data-i18n="nav_about"><i class="fa-solid fa-circle-info"></i> À Propos</a>
       <a href="about.html#organigramme" class="mobile-nav-link" data-i18n="nav_organigram"><i class="fa-solid fa-sitemap"></i> Organigramme</a>
-      <a href="events.html" class="mobile-nav-link" data-i18n="nav_events"><i class="fa-solid fa-calendar-days"></i> Événements</a>
+      <a href="activities.html" class="mobile-nav-link" data-i18n="nav_activities"><i class="fa-solid fa-calendar-days"></i> Activités</a>
+      <a href="index.html#partenaires" class="mobile-nav-link" data-i18n="nav_partners"><i class="fa-solid fa-handshake"></i> Partenaires</a>
       <a href="contact.html" class="mobile-nav-link" data-i18n="nav_contact"><i class="fa-solid fa-envelope"></i> Contact</a>
     </div>
     <div class="mobile-nav-footer">
       <a href="adhesion.html" class="btn-amibiomed-primary w-100 justify-content-center py-2 mb-2">
         <i class="fa-solid fa-id-card me-2"></i> <span data-i18n="btn_join">Devenir Membre</span>
-      </a>
-      <a href="admin/login.html" class="btn btn-sm btn-outline-secondary w-100 text-center py-2" data-i18n="nav_admin_login">
-        Connexion Administration
       </a>
     </div>
   </aside>
@@ -254,31 +252,32 @@
     </div>
   </section>
 
-  <!-- Derniers Événements & Publications -->
-  <section class="section-white">
+  <!-- Nos Activités (Mockup Conforme) -->
+  <section class="section-white" id="activites">
+    <div class="container text-center mb-5">
+      <h2 class="fw-bold display-6 text-dark mb-3">Nos Activités</h2>
+      <p class="text-muted max-w-700 mx-auto fs-6" style="line-height: 1.6;">
+        AMIBIOMED organise régulièrement des événements scientifiques et pédagogiques pour encourager les échanges, la formation continue et la valorisation de la recherche appliquée.
+      </p>
+    </div>
     <div class="container">
-      <div class="d-flex flex-wrap justify-content-between align-items-end mb-5">
-        <div>
-          <span class="badge bg-white text-primary border border-primary px-3 py-2 rounded-pill fw-bold text-uppercase mb-2 shadow-sm">Agenda Scientifique</span>
-          <h2 class="fw-bold fs-1">Conférences & Rencontres à Venir</h2>
-        </div>
-        <a href="events.html" class="btn-amibiomed-outline">
-          Voir tout le calendrier <i class="fa-solid fa-arrow-right ms-1"></i>
-        </a>
-      </div>
-
-      <div class="row" id="recent-events-container">
+      <div class="row g-4 justify-content-center" id="recent-events-container">
         <div class="col-12 text-center py-5">
           <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Chargement...</span>
           </div>
         </div>
       </div>
+      <div class="text-center mt-5">
+        <a href="activities.html" class="btn-amibiomed-outline px-4 py-2">
+          Voir toutes les activités <i class="fa-solid fa-arrow-right ms-2"></i>
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- Section Partenaires Institutionnels & Hospitaliers -->
-  <section class="section-light">
+  <section class="section-light" id="partenaires">
     <div class="container">
       <div class="text-center mb-5">
         <span class="badge bg-white text-dark border px-3 py-2 rounded-pill fw-bold text-uppercase mb-2 shadow-sm">Réseau & Partenariats</span>
@@ -324,7 +323,8 @@
             <li><a href="index.html" data-i18n="nav_home">Accueil</a></li>
             <li><a href="about.html" data-i18n="nav_about">À Propos</a></li>
             <li><a href="about.html#organigramme" data-i18n="nav_organigram">Organigramme</a></li>
-            <li><a href="events.html" data-i18n="nav_events">Événements</a></li>
+            <li><a href="activities.html" data-i18n="nav_activities">Activités</a></li>
+            <li><a href="index.html#partenaires" data-i18n="nav_partners">Partenaires</a></li>
             <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
           </ul>
         </div>
@@ -366,7 +366,7 @@
       <div class="footer-bottom-clean d-flex justify-content-between align-items-center flex-wrap gap-2">
         <span>&copy; 2025&ndash;2026 AMIBIOMED &mdash; Tous droits réservés.</span>
         <div class="d-flex gap-3 align-items-center">
-          <a href="admin/login.html" style="color:#94A3B8; font-size:0.83rem;">Administration</a>
+          <span style="color:#94A3B8; font-size:0.83rem;">Technologie &bull; Santé &bull; Éthique</span>
           <span style="color:#CBD5E1;">|</span>
           <span style="color:#CBD5E1; font-size:0.83rem;">Marrakech, Maroc</span>
         </div>

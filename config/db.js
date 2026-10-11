@@ -73,11 +73,31 @@ async function initDatabase() {
 }
 
 async function setupSchemaPg() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS activity_types (
+        id SERIAL PRIMARY KEY,
+        nom VARCHAR(100) NOT NULL UNIQUE,
+        icon VARCHAR(50) DEFAULT 'fa-solid fa-calendar-check',
+        couleur VARCHAR(50) DEFAULT '#4AA438',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+    await pool.query("ALTER TABLE events ADD COLUMN IF NOT EXISTS type_activite VARCHAR(100) DEFAULT 'Journées Scientifiques'");
+    await pool.query("ALTER TABLE events ADD COLUMN IF NOT EXISTS lien_action VARCHAR(255)");
+  } catch (e) {
+    console.warn('Note PostgreSQL alter/create types:', e.message);
+  }
+
   const schemaPath = path.join(__dirname, '..', 'sql', 'schema.sql');
   if (fs.existsSync(schemaPath)) {
-    const schemaSql = fs.readFileSync(schemaPath, 'utf8');
-    await pool.query(schemaSql);
-    console.log('✅ [Database] Schéma PostgreSQL appliqué avec succès');
+    try {
+      const schemaSql = fs.readFileSync(schemaPath, 'utf8');
+      await pool.query(schemaSql);
+      console.log('✅ [Database] Schéma PostgreSQL appliqué avec succès');
+    } catch (err) {
+      console.warn('Note schema PostgreSQL:', err.message);
+    }
   }
 }
 
@@ -106,15 +126,25 @@ function setupSchemaSqlite() {
       date_soumission DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
+    CREATE TABLE IF NOT EXISTS activity_types (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nom TEXT NOT NULL UNIQUE,
+      icon TEXT DEFAULT 'fa-solid fa-calendar-check',
+      couleur TEXT DEFAULT '#4AA438',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
     CREATE TABLE IF NOT EXISTS events (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       titre TEXT NOT NULL,
       slug TEXT UNIQUE NOT NULL,
+      type_activite TEXT DEFAULT 'Journées Scientifiques',
       description TEXT NOT NULL,
       date_event DATETIME NOT NULL,
       lieu TEXT NOT NULL,
       image_cover TEXT,
       programme_pdf TEXT,
+      lien_action TEXT,
       statut TEXT DEFAULT 'a_venir',
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
@@ -158,6 +188,12 @@ function setupSchemaSqlite() {
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);
+  try {
+    sqliteDb.exec("ALTER TABLE events ADD COLUMN type_activite TEXT DEFAULT 'Journées Scientifiques'");
+  } catch(e) {}
+  try {
+    sqliteDb.exec("ALTER TABLE events ADD COLUMN lien_action TEXT");
+  } catch(e) {}
   console.log('✅ [Database] Schéma SQLite appliqué avec succès');
 }
 
@@ -216,12 +252,37 @@ async function seedInitialData() {
 
     for (const ev of events) {
       await query(
-        `INSERT INTO events (titre, slug, description, date_event, lieu, image_cover, programme_pdf, statut)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-        [ev.titre, ev.slug, ev.description, ev.date_event, ev.lieu, ev.image_cover, ev.programme_pdf, ev.statut]
+        `INSERT INTO events (titre, slug, description, date_event, lieu, image_cover, programme_pdf, statut, type_activite, lien_action)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+        [ev.titre, ev.slug, ev.description, ev.date_event, ev.lieu, ev.image_cover, ev.programme_pdf, ev.statut, 'Journées Scientifiques', 'Participez avec nous!']
       );
     }
     console.log('📅 [Database] Événements initiaux insérés avec succès');
+  }
+
+  // Seed activity_types si vide
+  try {
+    const actTypesCount = await query('SELECT COUNT(*) as count FROM activity_types');
+    const countAct = parseInt(actTypesCount.rows[0].count || actTypesCount.rows[0]['count(*)'] || 0, 10);
+    if (countAct === 0) {
+      const defaultTypes = [
+        { nom: 'Journées Scientifiques', icon: 'fa-solid fa-robot', couleur: '#4AA438' },
+        { nom: 'Conférence Internationale', icon: 'fa-solid fa-globe', couleur: '#0074BC' },
+        { nom: 'Ateliers de Formation', icon: 'fa-solid fa-users', couleur: '#2E7D32' },
+        { nom: 'Séminaire Clinico-Technique', icon: 'fa-solid fa-hospital', couleur: '#E22637' },
+        { nom: 'Congrès National', icon: 'fa-solid fa-landmark', couleur: '#D97706' }
+      ];
+      for (const t of defaultTypes) {
+        await query(
+          'INSERT INTO activity_types (nom, icon, couleur) VALUES ($1, $2, $3)',
+          [t.nom, t.icon, t.couleur]
+        );
+      }
+      console.log('🎯 [Database] Types d’activités initiaux insérés avec succès');
+    }
+    await query("UPDATE events SET type_activite = 'Journées Scientifiques' WHERE type_activite IS NULL OR type_activite = ''");
+  } catch (errAct) {
+    console.warn('⚠️ [Database] Impossible d’initialiser les types d’activités:', errAct.message);
   }
 
   // Seed partners si vide

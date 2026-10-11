@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Découvrez les activités scientifiques, journées d'étude, conférences et ateliers de formation organisés par l'AMIBIOMED.">
+  <title>Nos Activités - AMIBIOMED</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Overlay Splash & Transition Logo Animé AMIBIOMED -->
+  <div id="amibiomed-splash-overlay" class="splash-overlay d-none">
+    <div class="splash-bg" aria-hidden="true">
+      <div class="splash-grid"></div>
+      <canvas id="splash-fx"></canvas>
+      <svg class="splash-sweep" viewBox="0 0 1200 100" preserveAspectRatio="none">
+        <path d="M0 50H260L280 50L295 22L315 82L338 6L360 50H640L660 50L675 22L695 82L718 6L740 50H1000L1020 50L1035 22L1055 82L1078 6L1100 50H1200"/>
+      </svg>
+    </div>
+    <div class="splash-stage" id="splash-stage">
+      <svg viewBox="0 0 280 215" aria-hidden="true" class="splash-svg">
+        <g class="splash-pulse" style="transform-origin:140px 110px">
+          <path class="splash-arc" d="M98 10C22 32-6 122 38 172C68 204 120 214 172 206"/>
+          <g class="splash-gear splash-g2"><g>
+            <circle cx="17" cy="38" r="17" fill="none" stroke="#8a9096" stroke-width="5" stroke-dasharray="5.34 5.34"/>
+            <circle cx="17" cy="38" r="12" fill="none" stroke="#8a9096" stroke-width="4"/>
+            <circle cx="17" cy="38" r="4.5" fill="none" stroke="#8a9096" stroke-width="3"/>
+          </g></g>
+          <g class="splash-gear"><g>
+            <circle cx="34" cy="13" r="14" fill="none" stroke="#0074BC" stroke-width="5" stroke-dasharray="5.5 5.5"/>
+            <circle cx="34" cy="13" r="9.5" fill="none" stroke="#0074BC" stroke-width="4.5"/>
+            <circle cx="34" cy="13" r="3.5" fill="#FFFFFF"/>
+          </g></g>
+          <path class="splash-ecg" d="M60 88L80 42L105 140L135 18L150 95L170 20L190 145L215 38L240 92L272 96L234 101"/>
+          <path class="splash-dna" d="M62 158Q115 140 175 206"/>
+          <ellipse class="splash-drop" style="animation-delay:0.3s" cx="78" cy="168" rx="4" ry="6"/>
+          <ellipse class="splash-drop" style="animation-delay:0.5s" cx="94" cy="172" rx="4" ry="6"/>
+          <ellipse class="splash-drop" style="animation-delay:0.7s" cx="110" cy="178" rx="4" ry="6"/>
+          <ellipse class="splash-drop" style="animation-delay:0.9s" cx="126" cy="186" rx="4" ry="6"/>
+          <ellipse class="splash-drop" style="animation-delay:1.1s" cx="142" cy="196" rx="4" ry="6"/>
+        </g>
+      </svg>
+      <div class="splash-txt">
+        <div class="splash-fr" id="splash-fr" aria-label="ASSOCIATION MAROCAINE DE L'INGÉNIERIE BIOMÉDICALE"></div>
+        <div class="splash-ar" lang="ar">الجمعية المغربية للهندسة البيوطبية</div>
+        <div class="splash-line"></div>
+      </div>
+    </div>
+    <button id="splash-skip-btn" class="btn-splash-skip">Accéder au site <i class="fa-solid fa-arrow-right ms-1"></i></button>
+  </div>
+
+  <!-- Header Flottant Pilule Style UCA Innov -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="index.html" class="brand" aria-label="AMIBIOMED - Accueil">
+        <img src="img/logo/amibiomed-logo.png" alt="AMIBIOMED" class="brand-logo">
+      </a>
+
+      <nav class="header-nav d-none d-lg-flex" aria-label="Navigation principale">
+        <a href="index.html" class="nav-link-pill" data-i18n="nav_home"><i class="fa-solid fa-house"></i>Accueil</a>
+        <a href="about.html" class="nav-link-pill" data-i18n="nav_about"><i class="fa-solid fa-circle-info"></i>À Propos</a>
+        <a href="about.html#organigramme" class="nav-link-pill" data-i18n="nav_organigram"><i class="fa-solid fa-sitemap"></i>Organigramme</a>
+        <a href="activities.html" class="nav-link-pill active" data-i18n="nav_activities"><i class="fa-solid fa-calendar-days"></i>Activités</a>
+        <a href="index.html#partenaires" class="nav-link-pill" data-i18n="nav_partners"><i class="fa-solid fa-handshake"></i>Partenaires</a>
+        <a href="contact.html" class="nav-link-pill" data-i18n="nav_contact"><i class="fa-solid fa-envelope"></i>Contact</a>
+      </nav>
+
+      <div class="d-flex align-items-center gap-2 flex-shrink-0">
+        <!-- Sélecteur de langue i18n -->
+        <div class="lang-selector-pill">
+          <button type="button" class="lang-btn active" data-lang="fr" title="Français">FR</button>
+          <span class="lang-sep">|</span>
+          <button type="button" class="lang-btn" data-lang="ar" title="العربية">AR</button>
+          <span class="lang-sep">|</span>
+          <button type="button" class="lang-btn" data-lang="en" title="English">EN</button>
+        </div>
+
+        <a href="adhesion.html" class="btn-amibiomed-primary" id="btn-header-devenir-membre">
+          <i class="fa-solid fa-id-card"></i>
+          <span data-i18n="btn_join">Devenir Membre</span>
+        </a>
+        <button class="nav-toggle-btn" id="mobile-nav-toggle" aria-label="Ouvrir le menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tiroir de Navigation Mobile & Tablette -->
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+  <aside class="mobile-nav-drawer" id="mobile-nav-drawer" aria-hidden="true">
+    <div class="mobile-nav-header">
+      <img src="img/logo/amibiomed-logo.png" alt="AMIBIOMED" style="height:36px; object-fit:contain;">
+      <button class="btn btn-sm btn-light rounded-circle" id="mobile-nav-close" aria-label="Fermer le menu">
+        <i class="fa-solid fa-xmark fa-lg"></i>
+      </button>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link" data-i18n="nav_home"><i class="fa-solid fa-house"></i> Accueil</a>
+      <a href="about.html" class="mobile-nav-link" data-i18n="nav_about"><i class="fa-solid fa-circle-info"></i> À Propos</a>
+      <a href="about.html#organigramme" class="mobile-nav-link" data-i18n="nav_organigram"><i class="fa-solid fa-sitemap"></i> Organigramme</a>
+      <a href="activities.html" class="mobile-nav-link" data-i18n="nav_activities"><i class="fa-solid fa-calendar-days"></i> Activités</a>
+      <a href="index.html#partenaires" class="mobile-nav-link" data-i18n="nav_partners"><i class="fa-solid fa-handshake"></i> Partenaires</a>
+      <a href="contact.html" class="mobile-nav-link" data-i18n="nav_contact"><i class="fa-solid fa-envelope"></i> Contact</a>
+    </div>
+    <div class="mobile-nav-footer">
+      <a href="adhesion.html" class="btn-amibiomed-primary w-100 justify-content-center py-2 mb-2">
+        <i class="fa-solid fa-id-card me-2"></i> <span data-i18n="btn_join">Devenir Membre</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Ligne d'accentuation dynamique ECG -->
+  <div class="ecg-line-container">
+    <div class="ecg-line-pulse"></div>
+  </div>
+
+  <!-- Subpage Hero Lumineux (Fond Blanc) -->
+  <section class="subpage-hero">
+    <div class="container py-4 text-center">
+      <h1 class="fw-bold display-5 text-dark mb-3">Nos Activités</h1>
+      <p class="lead text-muted max-w-700 mx-auto fs-6" style="line-height:1.7;">
+        AMIBIOMED organise régulièrement des événements scientifiques et pédagogiques pour encourager les échanges, la formation continue et la valorisation de la recherche appliquée.
+      </p>
+    </div>
+  </section>
+
+  <!-- Grille des Activités Modernes -->
+  <section class="section-white pt-2 pb-5">
+    <div class="container">
+      <div class="row g-4" id="all-events-container">
+        <!-- Chargé dynamiquement par main.js -->
+        <div class="col-12 text-center py-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Chargement...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Rejoindre l'AMIBIOMED -->
+  <section class="section-light text-center py-5">
+    <div class="container">
+      <h3 class="fw-bold mb-3 text-dark">Prenez part aux prochaines manifestations</h3>
+      <p class="text-muted max-w-700 mx-auto mb-4 fs-6">
+        Adhérez à l'AMIBIOMED pour assister aux conférences, proposer des communications scientifiques et bénéficier des ateliers pratiques.
+      </p>
+      <a href="adhesion.html" class="btn-amibiomed-primary px-4 py-2">
+        <i class="fa-solid fa-id-card me-2"></i> Devenir Membre
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER PREMIUM BLANC -->
+  <footer class="footer-amibiomed-white">
+    <div class="container">
+      <div class="row g-5">
+
+        <!-- Logo + Description + Réseaux Sociaux -->
+        <div class="col-lg-4">
+          <a href="index.html">
+            <img src="img/logo/amibiomed-logo.png" alt="AMIBIOMED" style="height:50px; width:auto; object-fit:contain;" class="mb-3">
+          </a>
+          <p class="small" style="color:#475569; line-height:1.75; max-width:300px;">
+            Association Marocaine de l'Ingénierie Biomédicale, fondée en 2017. Plateforme nationale d'expertise et d'échange pour les technologies médicales et hospitalières.
+          </p>
+          <div class="footer-devise-badge">
+            <i class="fa-solid fa-quote-left" style="color:#4AA438; font-size:1rem;"></i>
+            <span>Technologie &bull; Santé &bull; Éthique</span>
+          </div>
+          <div class="footer-social-links">
+            <a href="#" class="footer-social-btn" title="Facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="footer-social-btn li" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="footer-social-btn yt" title="YouTube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" class="footer-social-btn" title="Twitter/X" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="col-6 col-lg-2">
+          <h5>Navigation</h5>
+          <ul class="footer-links-clean">
+            <li><a href="index.html" data-i18n="nav_home">Accueil</a></li>
+            <li><a href="about.html" data-i18n="nav_about">À Propos</a></li>
+            <li><a href="about.html#organigramme" data-i18n="nav_organigram">Organigramme</a></li>
+            <li><a href="activities.html" data-i18n="nav_activities">Activités</a></li>
+            <li><a href="index.html#partenaires" data-i18n="nav_partners">Partenaires</a></li>
+            <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Coordonnées -->
+        <div class="col-6 col-lg-3">
+          <h5>Contact</h5>
+          <ul class="footer-links-clean">
+            <li style="color:#475569;">
+              <i class="fa-solid fa-location-dot me-2" style="color:#0074BC;"></i>
+              Faculté de Médecine et de Pharmacie, Marrakech
+            </li>
+            <li>
+              <a href="mailto:amibiomed.contact@gmail.com" style="color:#475569;">
+                <i class="fa-solid fa-envelope me-2" style="color:#0074BC;"></i>
+                amibiomed.contact@gmail.com
+              </a>
+            </li>
+            <li style="color:#475569;">
+              <i class="fa-solid fa-globe me-2" style="color:#0074BC;"></i>
+              www.amibiomed.ma
+            </li>
+          </ul>
+        </div>
+
+        <!-- Espace Membre -->
+        <div class="col-lg-3">
+          <h5>Espace Membre</h5>
+          <p class="small" style="color:#64748B; line-height:1.65; margin-bottom:18px;">
+            Rejoignez le réseau national des ingénieurs et chercheurs biomédicaux. Candidature 100&nbsp;% en ligne.
+          </p>
+          <a href="adhesion.html" class="btn-amibiomed-primary" style="display:inline-flex; width:100%; justify-content:center;">
+            <i class="fa-solid fa-paper-plane me-2"></i> Soumettre ma candidature
+          </a>
+        </div>
+      </div>
+
+      <!-- Barre bottom -->
+      <div class="footer-bottom-clean d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <span>&copy; 2025&ndash;2026 AMIBIOMED &mdash; Tous droits réservés.</span>
+        <div class="d-flex gap-3 align-items-center">
+          <span style="color:#94A3B8; font-size:0.83rem;">Technologie &bull; Santé &bull; Éthique</span>
+          <span style="color:#CBD5E1;">|</span>
+          <span style="color:#CBD5E1; font-size:0.83rem;">Marrakech, Maroc</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

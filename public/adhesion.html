@@ -16,6 +16,47 @@
 </head>
 <body>
 
+  <!-- Overlay Splash & Transition Logo Animé AMIBIOMED -->
+  <div id="amibiomed-splash-overlay" class="splash-overlay d-none">
+    <div class="splash-bg" aria-hidden="true">
+      <div class="splash-grid"></div>
+      <canvas id="splash-fx"></canvas>
+      <svg class="splash-sweep" viewBox="0 0 1200 100" preserveAspectRatio="none">
+        <path d="M0 50H260L280 50L295 22L315 82L338 6L360 50H640L660 50L675 22L695 82L718 6L740 50H1000L1020 50L1035 22L1055 82L1078 6L1100 50H1200"/>
+      </svg>
+    </div>
+    <div class="splash-stage" id="splash-stage">
+      <svg viewBox="0 0 280 215" aria-hidden="true" class="splash-svg">
+        <g class="splash-pulse" style="transform-origin:140px 110px">
+          <path class="splash-arc" d="M98 10C22 32-6 122 38 172C68 204 120 214 172 206"/>
+          <g class="splash-gear splash-g2"><g>
+            <circle cx="17" cy="38" r="17" fill="none" stroke="#8a9096" stroke-width="5" stroke-dasharray="5.34 5.34"/>
+            <circle cx="17" cy="38" r="12" fill="none" stroke="#8a9096" stroke-width="4"/>
+            <circle cx="17" cy="38" r="4.5" fill="none" stroke="#8a9096" stroke-width="3"/>
+          </g></g>
+          <g class="splash-gear"><g>
+            <circle cx="34" cy="13" r="14" fill="none" stroke="#0074BC" stroke-width="5" stroke-dasharray="5.5 5.5"/>
+            <circle cx="34" cy="13" r="9.5" fill="none" stroke="#0074BC" stroke-width="4.5"/>
+            <circle cx="34" cy="13" r="3.5" fill="#FFFFFF"/>
+          </g></g>
+          <path class="splash-ecg" d="M60 88L80 42L105 140L135 18L150 95L170 20L190 145L215 38L240 92L272 96L234 101"/>
+          <path class="splash-dna" d="M62 158Q115 140 175 206"/>
+          <ellipse class="splash-drop" style="animation-delay:0.3s" cx="78" cy="168" rx="4" ry="6"/>
+          <ellipse class="splash-drop" style="animation-delay:0.5s" cx="94" cy="172" rx="4" ry="6"/>
+          <ellipse class="splash-drop" style="animation-delay:0.7s" cx="110" cy="178" rx="4" ry="6"/>
+          <ellipse class="splash-drop" style="animation-delay:0.9s" cx="126" cy="186" rx="4" ry="6"/>
+          <ellipse class="splash-drop" style="animation-delay:1.1s" cx="142" cy="196" rx="4" ry="6"/>
+        </g>
+      </svg>
+      <div class="splash-txt">
+        <div class="splash-fr" id="splash-fr" aria-label="ASSOCIATION MAROCAINE DE L'INGÉNIERIE BIOMÉDICALE"></div>
+        <div class="splash-ar" lang="ar">الجمعية المغربية للهندسة البيوطبية</div>
+        <div class="splash-line"></div>
+      </div>
+    </div>
+    <button id="splash-skip-btn" class="btn-splash-skip">Accéder au site <i class="fa-solid fa-arrow-right ms-1"></i></button>
+  </div>
+
   <!-- Header Flottant Pilule Style UCA Innov -->
   <header class="site-header">
     <div class="site-header-inner">
@@ -27,7 +68,8 @@
         <a href="index.html" class="nav-link-pill" data-i18n="nav_home"><i class="fa-solid fa-house"></i>Accueil</a>
         <a href="about.html" class="nav-link-pill" data-i18n="nav_about"><i class="fa-solid fa-circle-info"></i>À Propos</a>
         <a href="about.html#organigramme" class="nav-link-pill" data-i18n="nav_organigram"><i class="fa-solid fa-sitemap"></i>Organigramme</a>
-        <a href="events.html" class="nav-link-pill" data-i18n="nav_events"><i class="fa-solid fa-calendar-days"></i>Événements</a>
+        <a href="activities.html" class="nav-link-pill" data-i18n="nav_activities"><i class="fa-solid fa-calendar-days"></i>Activités</a>
+        <a href="index.html#partenaires" class="nav-link-pill" data-i18n="nav_partners"><i class="fa-solid fa-handshake"></i>Partenaires</a>
         <a href="contact.html" class="nav-link-pill" data-i18n="nav_contact"><i class="fa-solid fa-envelope"></i>Contact</a>
       </nav>
 
@@ -41,7 +83,6 @@
           <button type="button" class="lang-btn" data-lang="en" title="English">EN</button>
         </div>
 
-        <a href="admin/login.html" class="nav-connexion-link d-none d-md-inline" data-i18n="nav_login">Connexion</a>
         <a href="adhesion.html" class="btn-amibiomed-primary" id="btn-header-devenir-membre">
           <i class="fa-solid fa-id-card"></i>
           <span data-i18n="btn_join">Devenir Membre</span>
@@ -66,15 +107,13 @@
       <a href="index.html" class="mobile-nav-link" data-i18n="nav_home"><i class="fa-solid fa-house"></i> Accueil</a>
       <a href="about.html" class="mobile-nav-link" data-i18n="nav_about"><i class="fa-solid fa-circle-info"></i> À Propos</a>
       <a href="about.html#organigramme" class="mobile-nav-link" data-i18n="nav_organigram"><i class="fa-solid fa-sitemap"></i> Organigramme</a>
-      <a href="events.html" class="mobile-nav-link" data-i18n="nav_events"><i class="fa-solid fa-calendar-days"></i> Événements</a>
+      <a href="activities.html" class="mobile-nav-link" data-i18n="nav_activities"><i class="fa-solid fa-calendar-days"></i> Activités</a>
+      <a href="index.html#partenaires" class="mobile-nav-link" data-i18n="nav_partners"><i class="fa-solid fa-handshake"></i> Partenaires</a>
       <a href="contact.html" class="mobile-nav-link" data-i18n="nav_contact"><i class="fa-solid fa-envelope"></i> Contact</a>
     </div>
     <div class="mobile-nav-footer">
       <a href="adhesion.html" class="btn-amibiomed-primary w-100 justify-content-center py-2 mb-2">
         <i class="fa-solid fa-id-card me-2"></i> <span data-i18n="btn_join">Devenir Membre</span>
-      </a>
-      <a href="admin/login.html" class="btn btn-sm btn-outline-secondary w-100 text-center py-2" data-i18n="nav_admin_login">
-        Connexion Administration
       </a>
     </div>
   </aside>
@@ -211,7 +250,8 @@
             <li><a href="index.html" data-i18n="nav_home">Accueil</a></li>
             <li><a href="about.html" data-i18n="nav_about">À Propos</a></li>
             <li><a href="about.html#organigramme" data-i18n="nav_organigram">Organigramme</a></li>
-            <li><a href="events.html" data-i18n="nav_events">Événements</a></li>
+            <li><a href="activities.html" data-i18n="nav_activities">Activités</a></li>
+            <li><a href="index.html#partenaires" data-i18n="nav_partners">Partenaires</a></li>
             <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
           </ul>
         </div>
@@ -253,7 +293,7 @@
       <div class="footer-bottom-clean d-flex justify-content-between align-items-center flex-wrap gap-2">
         <span>&copy; 2025&ndash;2026 AMIBIOMED &mdash; Tous droits réservés.</span>
         <div class="d-flex gap-3 align-items-center">
-          <a href="admin/login.html" style="color:#94A3B8; font-size:0.83rem;">Administration</a>
+          <span style="color:#94A3B8; font-size:0.83rem;">Technologie &bull; Santé &bull; Éthique</span>
           <span style="color:#CBD5E1;">|</span>
           <span style="color:#CBD5E1; font-size:0.83rem;">Marrakech, Maroc</span>
         </div>

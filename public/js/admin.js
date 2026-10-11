@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else if (window.location.pathname.includes('events-manage.html')) {
       initEventsManagement();
       initPartnersManagement();
+      initActivityTypesManagement();
     } else if (window.location.pathname.includes('media-manage.html')) {
       initMediaManagement();
     } else if (window.location.pathname.includes('users-manage.html')) {
@@ -236,10 +237,28 @@ window.openRejectionModal = function(id) {
   }
 };
 
-// 6. Gestion des Événements & Partenaires
+// 6. Gestion des Activités & Partenaires
 function initEventsManagement() {
   const tableBody = document.getElementById('events-tbody');
+  const typeSelect = document.getElementById('event-type-select');
   if (!tableBody) return;
+
+  // Charger les types d'activité pour le select du modal
+  const populateTypeSelect = async () => {
+    if (!typeSelect) return;
+    try {
+      const res = await fetch('/api/activity-types');
+      const data = await res.json();
+      if (data.success && data.data) {
+        typeSelect.innerHTML = '<option value="">Sélectionner un type...</option>' + 
+          data.data.map(t => `<option value="${t.nom}">${t.nom}</option>`).join('');
+      }
+    } catch (err) {
+      console.error('Erreur chargement types pour select :', err);
+    }
+  };
+
+  populateTypeSelect();
 
   const fetchEvents = async () => {
     try {
@@ -247,18 +266,19 @@ function initEventsManagement() {
       const data = await res.json();
 
       if (!data.success || data.data.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">Aucun événement répertorié.</td></tr>';
+        tableBody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">Aucune activité répertoriée.</td></tr>';
         return;
       }
 
       tableBody.innerHTML = data.data.map(e => `
         <tr>
-          <td><img src="${e.image_cover}" style="width: 50px; height: 35px; object-fit: cover; border-radius: 4px;" alt=""></td>
+          <td><img src="${e.image_cover || '/img/photos/event-congres.jpg'}" style="width: 50px; height: 35px; object-fit: cover; border-radius: 4px;" alt=""></td>
           <td><strong>${e.titre}</strong></td>
+          <td><span class="badge bg-light text-dark border"><i class="fa-solid fa-tag me-1 text-success"></i>${e.type_activite || 'Général'}</span></td>
           <td>${new Date(e.date_event).toLocaleDateString('fr-FR')}</td>
-          <td><span class="badge-status ${e.statut}">${e.statut.replace('_', ' ')}</span></td>
+          <td><small class="fw-semibold text-primary">${e.lien_action || e.statut}</small></td>
           <td>
-            <button onclick="deleteEventItem(${e.id})" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+            <button onclick="deleteEventItem(${e.id})" class="btn btn-sm btn-outline-danger" title="Supprimer l'activité"><i class="fa-solid fa-trash"></i></button>
           </td>
         </tr>
       `).join('');
@@ -282,22 +302,98 @@ function initEventsManagement() {
         });
         const data = await res.json();
         if (data.success) {
-          alert('✅ Événement créé avec succès !');
+          alert('✅ Activité enregistrée avec succès !');
           location.reload();
         } else {
           alert(`❌ ${data.message}`);
         }
       } catch (err) {
-        alert('Erreur lors de la création de l\'événement.');
+        alert('Erreur lors de la création de l\'activité.');
       }
     });
   }
 }
 
 window.deleteEventItem = async function(id) {
-  if (confirm("Voulez-vous vraiment supprimer cet événement ?")) {
+  if (confirm("Voulez-vous vraiment supprimer cette activité ?")) {
     await fetch(`/api/admin/events/${id}`, { method: 'DELETE' });
     location.reload();
+  }
+};
+
+// 6b. Gestion des Types d'Activités Paramétrables
+function initActivityTypesManagement() {
+  const tableBody = document.getElementById('activity-types-tbody');
+  if (!tableBody) return;
+
+  const fetchTypes = async () => {
+    try {
+      const res = await fetch('/api/activity-types');
+      const data = await res.json();
+
+      if (!data.success || data.data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="3" class="text-center text-muted">Aucun type paramétré.</td></tr>';
+        return;
+      }
+
+      tableBody.innerHTML = data.data.map(t => `
+        <tr>
+          <td><i class="fa-solid ${t.icone || 'fa-tag'} fa-lg" style="color:${t.couleur_badge || '#2D5A27'}"></i></td>
+          <td><strong>${t.nom}</strong></td>
+          <td>
+            <button onclick="deleteActivityTypeItem(${t.id})" class="btn btn-sm btn-outline-danger" title="Supprimer le type">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  fetchTypes();
+
+  const addForm = document.getElementById('add-activity-type-form');
+  if (addForm) {
+    addForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        nom: addForm.nom.value,
+        icone: addForm.icone.value,
+        couleur_badge: addForm.couleur_badge.value,
+        description: addForm.description.value
+      };
+
+      try {
+        const res = await fetch('/api/admin/activity-types', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert('✅ Type d\'activité ajouté avec succès !');
+          location.reload();
+        } else {
+          alert(`❌ ${data.message}`);
+        }
+      } catch (err) {
+        alert('Erreur lors de la création du type.');
+      }
+    });
+  }
+}
+
+window.deleteActivityTypeItem = async function(id) {
+  if (confirm("Voulez-vous supprimer ce type d'activité ?")) {
+    const res = await fetch(`/api/admin/activity-types/${id}`, { method: 'DELETE' });
+    const data = await res.json();
+    if (data.success) {
+      location.reload();
+    } else {
+      alert(`❌ ${data.message}`);
+    }
   }
 };
 

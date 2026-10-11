@@ -27,9 +27,11 @@ router.get('/settings', settingsController.getPublicSettings);
 // Adhésions
 router.post('/adhesions', uploadAdhesionDoc.single('justificatif'), adhesionController.createAdhesion);
 
-// Événements
+// Événements & Activités
 router.get('/events', eventController.getEvents);
 router.get('/events/:identifier', eventController.getEventBySlugOrId);
+router.get('/activities', eventController.getEvents);
+router.get('/activity-types', eventController.getActivityTypes);
 
 // Partenaires
 router.get('/partners', partnerController.getPartners);
@@ -83,6 +85,11 @@ router.put(
   eventController.updateEvent
 );
 router.delete('/admin/events/:id', authenticateToken, eventController.deleteEvent);
+
+// Gestion des Types d'Activités (Paramétrable)
+router.get('/admin/activity-types', authenticateToken, eventController.getActivityTypes);
+router.post('/admin/activity-types', authenticateToken, eventController.createActivityType);
+router.delete('/admin/activity-types/:id', authenticateToken, eventController.deleteActivityType);
 
 // Gestion des Partenaires
 router.post('/admin/partners', authenticateToken, uploadPartnerLogo.single('logo'), partnerController.createPartner);

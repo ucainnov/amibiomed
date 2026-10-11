@@ -37,22 +37,33 @@ CREATE INDEX IF NOT EXISTS idx_adhesions_statut ON adhesions(statut);
 CREATE INDEX IF NOT EXISTS idx_adhesions_email ON adhesions(email);
 CREATE INDEX IF NOT EXISTS idx_adhesions_cin ON adhesions(cin);
 
--- 3. Table des Événements & Conférences
+-- 3. Table des Activités & Événements
+CREATE TABLE IF NOT EXISTS activity_types (
+    id SERIAL PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL UNIQUE,
+    icon VARCHAR(60) DEFAULT 'fa-solid fa-calendar-check',
+    couleur VARCHAR(30) DEFAULT '#4AA438',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS events (
     id SERIAL PRIMARY KEY,
     titre VARCHAR(200) NOT NULL,
     slug VARCHAR(220) UNIQUE NOT NULL,
+    type_activite VARCHAR(100) DEFAULT 'Journées Scientifiques',
     description TEXT NOT NULL,
     date_event TIMESTAMP WITH TIME ZONE NOT NULL,
     lieu VARCHAR(150) NOT NULL,
     image_cover VARCHAR(255),
     programme_pdf VARCHAR(255),
+    lien_action VARCHAR(255),
     statut VARCHAR(30) DEFAULT 'a_venir' CHECK (statut IN ('a_venir', 'en_cours', 'realise')),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE INDEX IF NOT EXISTS idx_events_statut ON events(statut);
 CREATE INDEX IF NOT EXISTS idx_events_date ON events(date_event);
+CREATE INDEX IF NOT EXISTS idx_events_type ON events(type_activite);
 
 -- 4. Table des Articles & Publications
 CREATE TABLE IF NOT EXISTS articles (

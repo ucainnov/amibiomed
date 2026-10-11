@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initI18n();
   initSplashIntro();
+  initPageTransitions();
   initCounters();
   loadRecentEvents();
   loadPartners();
@@ -59,8 +60,8 @@ function highlightActiveNav() {
 
   if (currentHash) {
     navLinks.forEach(link => {
-      const href = link.getAttribute('href') || '';
-      if (href.toLowerCase() === (currentFile + currentHash)) {
+      const href = (link.getAttribute('href') || '').toLowerCase();
+      if (href.endsWith(currentHash) || href === (currentFile + currentHash)) {
         link.classList.add('active');
         matched = true;
       }
@@ -69,9 +70,9 @@ function highlightActiveNav() {
 
   if (!matched) {
     navLinks.forEach(link => {
-      const href = link.getAttribute('href') || '';
-      const hrefFile = href.substring(href.lastIndexOf('/') + 1).toLowerCase().split('#')[0];
-      if (hrefFile === currentFile && !href.includes('#')) {
+      const href = (link.getAttribute('href') || '').toLowerCase();
+      const hrefFile = href.substring(href.lastIndexOf('/') + 1).split('#')[0];
+      if ((hrefFile === currentFile || (currentFile === 'events.html' && hrefFile === 'activities.html') || (currentFile === 'activities.html' && hrefFile === 'events.html')) && !href.includes('#')) {
         link.classList.add('active');
       }
     });
@@ -112,7 +113,7 @@ function initCounters() {
   animate();
 }
 
-// 3. Charger les événements récents (Accueil & Page Événements)
+// 3. Charger les Activités (Accueil & Page Activités / Événements)
 async function loadRecentEvents() {
   const eventsContainer = document.getElementById('recent-events-container');
   const allEventsContainer = document.getElementById('all-events-container');
@@ -121,53 +122,72 @@ async function loadRecentEvents() {
 
   try {
     const isHomePage = !!eventsContainer;
-    const url = isHomePage ? '/api/events?limit=3' : '/api/events';
+    const url = isHomePage ? '/api/events?limit=6' : '/api/events';
     const response = await fetch(url);
     const data = await response.json();
 
     if (!data.success || !data.data || data.data.length === 0) {
-      const emptyMsg = '<div class="col-12 text-center text-muted py-4"><i class="fa-solid fa-calendar-xmark fa-2x mb-2"></i><p>Aucun événement programmé pour le moment.</p></div>';
+      const emptyMsg = '<div class="col-12 text-center text-muted py-5"><i class="fa-solid fa-calendar-xmark fa-2x mb-3 text-secondary"></i><p class="fs-6">Aucune activité programmée pour le moment.</p></div>';
       if (eventsContainer) eventsContainer.innerHTML = emptyMsg;
       if (allEventsContainer) allEventsContainer.innerHTML = emptyMsg;
       return;
     }
 
+    const getIconInfo = (type, title) => {
+      const t = ((type || '') + ' ' + (title || '')).toLowerCase();
+      if (t.includes('scientifique') || t.includes('ia') || t.includes('intelligence') || t.includes('robot')) {
+        return { icon: 'fa-solid fa-robot', colorClass: 'activity-icon-green' };
+      }
+      if (t.includes('international') || t.includes('monde') || t.includes('icbe') || t.includes('globe')) {
+        return { icon: 'fa-solid fa-globe', colorClass: 'activity-icon-green' };
+      }
+      if (t.includes('formation') || t.includes('atelier') || t.includes('workshop') || t.includes('groupe')) {
+        return { icon: 'fa-solid fa-users', colorClass: 'activity-icon-green' };
+      }
+      if (t.includes('séminaire') || t.includes('clinico') || t.includes('médical') || t.includes('santé')) {
+        return { icon: 'fa-solid fa-stethoscope', colorClass: 'activity-icon-green' };
+      }
+      return { icon: 'fa-solid fa-calendar-check', colorClass: 'activity-icon-green' };
+    };
+
+    const getActionHtml = (ev) => {
+      if (ev.lien_action) {
+        const la = ev.lien_action.trim();
+        if (la.toLowerCase().includes('particip') || la.toLowerCase().includes('rejoign')) {
+          return `<a href="/adhesion.html" class="activity-action-link">${la}</a>`;
+        }
+        if (la.toLowerCase().includes('réalisé') || ev.statut === 'realise') {
+          return `<span class="fw-semibold text-primary" style="font-size:0.92rem;">${la}</span>`;
+        }
+        if (la.toLowerCase().includes('cours') || ev.statut === 'en_cours') {
+          return `<span class="fw-semibold text-warning" style="font-size:0.92rem;">${la}</span>`;
+        }
+        return `<a href="/activities.html" class="activity-action-link">${la}</a>`;
+      }
+      if (ev.statut === 'a_venir') {
+        return `<a href="/adhesion.html" class="activity-action-link">Participez avec nous!</a>`;
+      } else if (ev.statut === 'en_cours') {
+        return `<span class="fw-semibold text-warning" style="font-size:0.92rem;">En cours</span>`;
+      } else {
+        return `<span class="fw-semibold text-primary" style="font-size:0.92rem;">Réalisé</span>`;
+      }
+    };
+
     const renderEvents = (items, targetEl) => {
       targetEl.innerHTML = items.map(ev => {
-        const dateFormatted = new Date(ev.date_event).toLocaleDateString('fr-FR', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
-        });
-
-        const statusLabels = {
-          a_venir: '<span class="badge-status a_venir"><i class="fa-solid fa-clock"></i> À venir</span>',
-          en_cours: '<span class="badge-status en_cours"><i class="fa-solid fa-spinner fa-spin"></i> En cours</span>',
-          realise: '<span class="badge-status realise"><i class="fa-solid fa-circle-check"></i> Réalisé</span>'
-        };
-
-        const pdfBtn = ev.programme_pdf 
-          ? `<a href="${ev.programme_pdf}" target="_blank" class="btn btn-sm btn-amibiomed-outline"><i class="fa-solid fa-file-pdf text-danger me-1"></i> Programme PDF</a>`
-          : '';
+        const iconInfo = getIconInfo(ev.type_activite, ev.titre);
+        const actionHtml = getActionHtml(ev);
 
         return `
-          <div class="col-md-4 mb-4">
-            <div class="event-card">
-              <img src="${ev.image_cover || '/img/photos/event-congres.jpg'}" class="event-card-img" alt="${ev.titre}">
-              <div class="event-card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  ${statusLabels[ev.statut] || statusLabels.a_venir}
-                  <small class="text-muted"><i class="fa-solid fa-location-dot me-1"></i>${ev.lieu.split(',')[0]}</small>
-                </div>
-                <h5 class="card-title fw-bold mb-2 text-dark">${ev.titre}</h5>
-                <div class="event-meta mb-3">
-                  <span><i class="fa-solid fa-calendar-day me-1 text-primary"></i> ${dateFormatted}</span>
-                </div>
-                <p class="card-text text-muted flex-grow-1" style="font-size:0.9rem;">${ev.description}</p>
-                <div class="d-flex justify-content-between align-items-center pt-3 border-top mt-3">
-                  ${pdfBtn}
-                  <a href="/adhesion.html" class="btn btn-sm btn-amibiomed-primary">Rejoindre</a>
-                </div>
+          <div class="col-md-6 col-lg-4 d-flex">
+            <div class="activity-card-modern w-100">
+              <div class="activity-icon-sq ${iconInfo.colorClass}">
+                <i class="${iconInfo.icon}"></i>
+              </div>
+              <h3 class="activity-card-title">${ev.titre}</h3>
+              <p class="activity-card-desc">${ev.description || ''}</p>
+              <div class="activity-card-meta">
+                ${actionHtml}
               </div>
             </div>
           </div>
@@ -175,11 +195,11 @@ async function loadRecentEvents() {
       }).join('');
     };
 
-    if (eventsContainer) renderEvents(data.data, eventsContainer);
+    if (eventsContainer) renderEvents(data.data.slice(0, 3), eventsContainer);
     if (allEventsContainer) renderEvents(data.data, allEventsContainer);
 
   } catch (err) {
-    console.error('Erreur chargement événements :', err);
+    console.error('Erreur chargement activités :', err);
   }
 }
 
@@ -334,10 +354,10 @@ const i18nData = {
     nav_home: 'Accueil',
     nav_about: 'À Propos',
     nav_organigram: 'Organigramme',
-    nav_events: 'Événements',
+    nav_events: 'Activités',
+    nav_activities: 'Activités',
+    nav_partners: 'Partenaires',
     nav_contact: 'Contact',
-    nav_login: 'Connexion',
-    nav_admin_login: 'Connexion Administration',
     btn_join: 'Devenir Membre',
     btn_submit_candidature: 'Soumettre ma candidature',
     footer_devise: 'Technologie • Santé • Éthique',
@@ -353,10 +373,10 @@ const i18nData = {
     nav_home: 'الرئيسية',
     nav_about: 'عن الجمعية',
     nav_organigram: 'الهيكل التنظيمي',
-    nav_events: 'الفعاليات',
+    nav_events: 'الأنشطة',
+    nav_activities: 'الأنشطة',
+    nav_partners: 'الشركاء',
     nav_contact: 'اتصل بنا',
-    nav_login: 'تسجيل الدخول',
-    nav_admin_login: 'دخول الإدارة',
     btn_join: 'الانضمام كعضو',
     btn_submit_candidature: 'تقديم طلب العضوية',
     footer_devise: 'تكنولوجيا • صحة • أصل الأخلاقيات',
@@ -372,10 +392,10 @@ const i18nData = {
     nav_home: 'Home',
     nav_about: 'About Us',
     nav_organigram: 'Organization Chart',
-    nav_events: 'Events',
+    nav_events: 'Activities',
+    nav_activities: 'Activities',
+    nav_partners: 'Partners',
     nav_contact: 'Contact',
-    nav_login: 'Login',
-    nav_admin_login: 'Admin Login',
     btn_join: 'Become a Member',
     btn_submit_candidature: 'Submit Application',
     footer_devise: 'Technology • Health • Ethics',
@@ -438,14 +458,86 @@ function setLanguage(lang) {
   });
 }
 
-/* —INFRINGEMENT SAFE SPLASH INTRO ANIMATION (SEULEMENT PREMIÈRE VISITE)— */
+/* —GESTION DU LOGO ANIMÉ EN TRANSITION DE PAGE (SUR TOUS LES CLICS)— */
+function initPageTransitions() {
+  const overlay = document.getElementById('amibiomed-splash-overlay');
+  if (!overlay) return;
+
+  // Si on arrive d'une transition entre pages
+  const isTransitioning = sessionStorage.getItem('amibiomed_page_nav');
+  if (isTransitioning) {
+    sessionStorage.removeItem('amibiomed_page_nav');
+    overlay.classList.remove('d-none');
+    overlay.classList.add('page-transition');
+    const skip = document.getElementById('splash-skip-btn');
+    if (skip) skip.style.display = 'none';
+
+    setTimeout(() => {
+      overlay.classList.add('fade-out');
+      setTimeout(() => {
+        overlay.classList.add('d-none');
+        overlay.classList.remove('page-transition');
+      }, 450);
+    }, 280);
+  }
+
+  // Intercepter les clics vers une autre page interne
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+    if (!href) return;
+
+    // Ignorer les liens externes, ancres sur la même page, fichiers, tel/mailto
+    if (
+      href.startsWith('#') ||
+      href.startsWith('mailto:') ||
+      href.startsWith('tel:') ||
+      href.startsWith('javascript:') ||
+      link.target === '_blank' ||
+      link.hasAttribute('download')
+    ) {
+      return;
+    }
+
+    try {
+      const targetUrl = new URL(link.href, window.location.href);
+      if (targetUrl.origin !== window.location.origin) return;
+      if (targetUrl.pathname === window.location.pathname && (targetUrl.hash || targetUrl.search === window.location.search)) return;
+
+      // Déclencher l'animation logo AMIBIOMED avant navigation
+      e.preventDefault();
+      sessionStorage.setItem('amibiomed_page_nav', 'true');
+
+      overlay.classList.remove('d-none');
+      overlay.classList.remove('fade-out');
+      overlay.classList.add('page-transition');
+      const skip = document.getElementById('splash-skip-btn');
+      if (skip) skip.style.display = 'none';
+
+      setTimeout(() => {
+        window.location.href = link.href;
+      }, 350);
+    } catch (err) {
+      // En cas d'URL atypique, navigation native
+    }
+  });
+}
+
+/* —SPLASH INTRO ANIMATION (PREMIÈRE VISITE)— */
 function initSplashIntro() {
   const overlay = document.getElementById('amibiomed-splash-overlay');
   if (!overlay) return;
 
+  // Si on est déjà en mode transition entre pages, ne pas rejouer le grand splash de 6s
+  if (sessionStorage.getItem('amibiomed_page_nav')) return;
+
   const hasSeenIntro = sessionStorage.getItem('amibiomed_intro_shown');
   if (hasSeenIntro) {
-    overlay.classList.add('d-none');
+    if (!overlay.classList.contains('page-transition')) {
+      overlay.classList.add('d-none');
+    }
     return;
   }
 

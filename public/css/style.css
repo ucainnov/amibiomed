@@ -1473,3 +1473,115 @@ a:hover {
   background: #4AA438;
   transform: translateY(-2px);
 }
+
+/* ——————————————————————————————————————————————————————————
+   CARTES D'ACTIVITÉS MODERNES (Style UCA Innov & Maquette)
+   —————————————————————————————————————————————————————————— */
+.activity-card-modern {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+}
+
+.activity-card-modern:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.1);
+  border-color: #4AA438;
+}
+
+.activity-icon-sq {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  transition: transform 0.3s ease;
+}
+
+.activity-card-modern:hover .activity-icon-sq {
+  transform: scale(1.08) rotate(2deg);
+}
+
+.activity-icon-green { background: #2D5A27; color: #FFFFFF; }
+.activity-icon-teal  { background: #1F5F4A; color: #FFFFFF; }
+.activity-icon-dark  { background: #254D32; color: #FFFFFF; }
+.activity-icon-blue  { background: #0074BC; color: #FFFFFF; }
+
+.activity-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 12px;
+  line-height: 1.35;
+}
+
+.activity-card-desc {
+  color: #64748B;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.activity-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #F1F5F9;
+  padding-top: 16px;
+  margin-top: auto;
+}
+
+.activity-action-link {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #0074BC;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.activity-action-link:hover {
+  color: #0056b3;
+}
+
+.activity-status-badge {
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 20px;
+  padding: 4px 12px;
+}
+.activity-status-badge.status-realise {
+  background: #E0F2FE;
+  color: #0284C7;
+}
+.activity-status-badge.status-en_cours {
+  background: #FEF3C7;
+  color: #D97706;
+}
+.activity-status-badge.status-a_venir {
+  background: #DCFCE7;
+  color: #16A34A;
+}
+
+/* Transition de page avec logo animé */
+.splash-overlay.page-transition {
+  animation: splashFadeIn 0.35s ease forwards;
+}
+
+@keyframes splashFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
