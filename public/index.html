@@ -77,16 +77,18 @@
       </nav>
 
       <div class="d-flex align-items-center gap-2 flex-shrink-0">
-        <!-- Sélecteur de langue i18n -->
-        <div class="lang-selector-pill">
-          <button type="button" class="lang-btn active" data-lang="fr" title="Français">FR</button>
-          <span class="lang-sep">|</span>
-          <button type="button" class="lang-btn" data-lang="ar" title="العربية">AR</button>
-          <span class="lang-sep">|</span>
-          <button type="button" class="lang-btn" data-lang="en" title="English">EN</button>
+        <!-- Sélecteur de langue en liste déroulante -->
+        <div class="lang-dropdown-pill">
+          <i class="fa-solid fa-globe lang-globe-icon"></i>
+          <select class="lang-select" aria-label="Choisir la langue">
+            <option value="fr">FR</option>
+            <option value="ar">AR</option>
+            <option value="en">EN</option>
+          </select>
+          <i class="fa-solid fa-chevron-down lang-chevron-icon"></i>
         </div>
 
-        <a href="adhesion.html" class="btn-amibiomed-primary" id="btn-header-devenir-membre">
+        <a href="adhesion.html" class="btn-amibiomed-primary d-none d-lg-inline-flex" id="btn-header-devenir-membre">
           <i class="fa-solid fa-id-card"></i>
           <span data-i18n="btn_join">Devenir Membre</span>
         </a>

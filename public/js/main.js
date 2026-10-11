@@ -542,6 +542,15 @@ function initI18n() {
   const currentLang = localStorage.getItem('amibiomed_lang') || 'fr';
   setLanguage(currentLang);
 
+  // Écouteur pour les listes déroulantes de langue
+  document.querySelectorAll('.lang-select').forEach(selectEl => {
+    selectEl.addEventListener('change', (e) => {
+      const lang = e.target.value;
+      if (lang) setLanguage(lang);
+    });
+  });
+
+  // Support des boutons éventuels
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const lang = btn.getAttribute('data-lang');
@@ -561,6 +570,11 @@ function setLanguage(lang) {
     document.documentElement.setAttribute('dir', 'ltr');
     document.documentElement.setAttribute('lang', lang);
   }
+
+  // Synchronisation des listes déroulantes
+  document.querySelectorAll('.lang-select').forEach(selectEl => {
+    selectEl.value = lang;
+  });
 
   document.querySelectorAll('.lang-btn').forEach(btn => {
     if (btn.getAttribute('data-lang') === lang) {
