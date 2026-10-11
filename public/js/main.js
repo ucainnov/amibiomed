@@ -619,9 +619,6 @@ function initSplashIntro() {
     }, 850);
   };
 
-  const skipBtn = document.getElementById('splash-skip-btn');
-  if (skipBtn) skipBtn.addEventListener('click', closeSplash);
-
   // Laisser l'animation se terminer COMPLÈTEMENT (5.8 secondes)
   setTimeout(closeSplash, 5800);
 }

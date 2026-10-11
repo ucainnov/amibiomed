@@ -1452,27 +1452,6 @@ a:hover {
   16% { transform: scale(1); }
 }
 
-.btn-splash-skip {
-  position: absolute;
-  right: 24px;
-  bottom: 24px;
-  z-index: 2;
-  background: #1E293B;
-  color: #FFFFFF;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: var(--radius-pill);
-  padding: 9px 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-}
-
-.btn-splash-skip:hover {
-  background: #4AA438;
-  transform: translateY(-2px);
-}
 
 /* ——————————————————————————————————————————————————————————
    CARTES D'ACTIVITÉS MODERNES (Style UCA Innov & Maquette)
