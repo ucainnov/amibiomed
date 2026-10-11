@@ -86,13 +86,13 @@ body.admin-body {
 }
 
 .admin-header {
-  height: var(--admin-header-height);
-  background: #FFFFFF;
-  border-bottom: 1px solid #E2E8F0;
+  min-height: 55px;
+  background: transparent;
+  border-bottom: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 30px;
+  padding: 16px 30px;
 }
 
 .admin-content {
