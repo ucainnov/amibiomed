@@ -89,6 +89,116 @@ function initAdminLogin() {
       submitBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket me-2"></i>Se Connecter au Back-Office';
     }
   });
+
+  // Gestion du Mot de Passe Oublié (Récupération par Code)
+  const showForgotBtn = document.getElementById('show-forgot-btn');
+  const forgotBox = document.getElementById('forgot-password-box');
+  const backToLoginBtn = document.getElementById('back-to-login-btn');
+  const forgotStep1 = document.getElementById('forgot-step1-form');
+  const forgotStep2 = document.getElementById('forgot-step2-form');
+  const targetEmailDisp = document.getElementById('target-email-disp');
+  let currentResetEmail = '';
+
+  if (showForgotBtn && forgotBox) {
+    showForgotBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      alertBox.classList.add('d-none');
+      form.classList.add('d-none');
+      forgotBox.classList.remove('d-none');
+      forgotStep1.classList.remove('d-none');
+      forgotStep2.classList.add('d-none');
+      const emailVal = document.getElementById('email').value;
+      if (emailVal) document.getElementById('forgot-email').value = emailVal;
+    });
+
+    backToLoginBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      alertBox.classList.add('d-none');
+      forgotBox.classList.add('d-none');
+      form.classList.remove('d-none');
+    });
+
+    // Étape 1 : Demande de code par e-mail
+    forgotStep1.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.classList.add('d-none');
+      const email = document.getElementById('forgot-email').value.trim();
+      const sendBtn = document.getElementById('send-code-btn');
+      sendBtn.disabled = true;
+      sendBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>Envoi en cours...';
+
+      try {
+        const res = await fetch('/api/auth/forgot-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (data.success) {
+          currentResetEmail = email;
+          targetEmailDisp.textContent = email;
+          forgotStep1.classList.add('d-none');
+          forgotStep2.classList.remove('d-none');
+          alertBox.className = 'alert alert-success d-block';
+          alertBox.innerHTML = `<i class="fa-solid fa-circle-check me-2"></i>${data.message}`;
+        } else {
+          alertBox.className = 'alert alert-danger d-block';
+          alertBox.innerHTML = `<i class="fa-solid fa-circle-exclamation me-2"></i>${data.message}`;
+        }
+      } catch (err) {
+        alertBox.className = 'alert alert-danger d-block';
+        alertBox.innerHTML = '<i class="fa-solid fa-circle-exclamation me-2"></i>Erreur de communication avec le serveur.';
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = '<i class="fa-solid fa-paper-plane me-2"></i>Envoyer le code à 6 chiffres';
+      }
+    });
+
+    // Étape 2 : Vérification du code et mise à jour du mot de passe
+    forgotStep2.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.classList.add('d-none');
+      const code = document.getElementById('reset-code').value.trim();
+      const new_password = document.getElementById('new-password').value;
+      const confirm_password = document.getElementById('confirm-password').value;
+
+      if (new_password !== confirm_password) {
+        alertBox.className = 'alert alert-danger d-block';
+        alertBox.innerHTML = '<i class="fa-solid fa-circle-exclamation me-2"></i>Les deux mots de passe ne sont pas identiques.';
+        return;
+      }
+
+      const resetBtn = document.getElementById('reset-pass-btn');
+      resetBtn.disabled = true;
+      resetBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>Validation en cours...';
+
+      try {
+        const res = await fetch('/api/auth/reset-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: currentResetEmail, code, new_password })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alertBox.className = 'alert alert-success d-block';
+          alertBox.innerHTML = `<i class="fa-solid fa-circle-check me-2"></i>${data.message}`;
+          document.getElementById('password').value = new_password;
+          document.getElementById('email').value = currentResetEmail;
+          forgotBox.classList.add('d-none');
+          form.classList.remove('d-none');
+        } else {
+          alertBox.className = 'alert alert-danger d-block';
+          alertBox.innerHTML = `<i class="fa-solid fa-circle-exclamation me-2"></i>${data.message}`;
+        }
+      } catch (err) {
+        alertBox.className = 'alert alert-danger d-block';
+        alertBox.innerHTML = '<i class="fa-solid fa-circle-exclamation me-2"></i>Erreur de réinitialisation.';
+      } finally {
+        resetBtn.disabled = false;
+        resetBtn.innerHTML = '<i class="fa-solid fa-check me-2"></i>Valider le nouveau mot de passe';
+      }
+    });
+  }
 }
 
 // 3. Déconnexion

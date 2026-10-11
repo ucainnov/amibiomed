@@ -1613,3 +1613,85 @@ a:hover {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* ——————————————————————————————————————————————————————————
+   SECTION "POURQUOI ADHÉRER" & FORMULAIRE DYNAMIQUE D'ADHÉSION
+   —————————————————————————————————————————————————————————— */
+.why-adhere-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 26px 22px;
+  height: 100%;
+  transition: var(--transition);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.why-adhere-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+  border-color: var(--color-primary);
+}
+
+.why-adhere-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.why-adhere-icon.icon-student { background: #EBF5FF; color: #0074BC; }
+.why-adhere-icon.icon-chercheur { background: #EDF7ED; color: #4AA438; }
+.why-adhere-icon.icon-public { background: #FEF3F2; color: #E22637; }
+.why-adhere-icon.icon-prive { background: #FFFBEB; color: #D97706; }
+
+.cotisation-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #F1F5F9;
+  color: #1E293B;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+}
+
+.cotisation-summary-box {
+  background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
+  border: 1px solid #86EFAC;
+  border-left: 5px solid #22C55E;
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  transition: var(--transition);
+}
+
+.benefit-list {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+}
+
+.benefit-list li {
+  font-size: 0.88rem;
+  color: #475569;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+
+.benefit-list li i {
+  color: #4AA438;
+  margin-top: 3px;
+  flex-shrink: 0;
+}

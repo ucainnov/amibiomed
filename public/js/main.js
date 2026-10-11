@@ -260,6 +260,110 @@ function initAdhesionForm() {
 
   const alertBox = document.getElementById('adhesion-alert');
   const submitBtn = document.getElementById('adhesion-submit-btn');
+  const typeSelect = document.getElementById('type_membre');
+  const summaryBox = document.getElementById('cotisation-summary-box');
+  const summaryTitle = document.getElementById('summary-cat-title');
+  const summaryBadge = document.getElementById('summary-cotisation-badge');
+  const summaryDesc = document.getElementById('summary-cat-desc');
+  const summaryDoc = document.getElementById('summary-doc-required');
+  const affilLabel = document.getElementById('affiliation-label');
+  const affilInput = document.getElementById('affiliation');
+  const detailLabel = document.getElementById('affiliation-detail-label');
+  const detailInput = document.getElementById('affiliation_detail');
+  const justifLabel = document.getElementById('justificatif-label');
+  const justifHint = document.getElementById('justificatif-hint');
+
+  const configs = {
+    etudiant: {
+      title: '🎓 Profil : Étudiant / Doctorant en Biomédical',
+      cotisation: 'Cotisation Solidaire : 100 DH / an',
+      desc: 'Tarif réduit solidaire réservé aux étudiants et doctorants inscrits dans un cursus biomédical, santé numérique ou sciences de l\'ingénieur.',
+      docRequired: 'Attestation de scolarité en cours de validité ou Carte d’étudiant',
+      affilLabel: 'Établissement Universitaire / École *',
+      affilPh: 'Ex: Faculté de Médecine, FST, ENSA, Faculté des Sciences...',
+      detailLabel: 'Filière d’études / Niveau / Spécialité *',
+      detailPh: 'Ex: Master Génie Biomédical (M2), Doctorat en Biotechnologie (1ère année)...',
+      justifLabel: 'Attestation de Scolarité ou Carte d’étudiant en cours de validité *',
+      justifHint: 'Obligatoire pour valider le tarif solidaire étudiant de 100 DH / an (Format: PDF, JPG, PNG - Max 5 Mo).'
+    },
+    chercheur: {
+      title: '🔬 Profil : Enseignant-Chercheur / Scientifique',
+      cotisation: 'Cotisation : 300 DH / an',
+      desc: 'Pour les enseignants-chercheurs, professeurs universitaires et membres de laboratoires de recherche et d\'innovation biomédicale.',
+      docRequired: 'Attestation de travail académique, carte professionnelle ou arrêté de nomination',
+      affilLabel: 'Université / Établissement d’attachement *',
+      affilPh: 'Ex: Université Cadi Ayyad, Université Mohammed V, UIR...',
+      detailLabel: 'Laboratoire de Recherche / Discipline *',
+      detailPh: 'Ex: Laboratoire d’Instrumentation Médicale, Équipe IA & Santé...',
+      justifLabel: 'Attestation d’exercice académique ou Carte d’enseignant *',
+      justifHint: 'Justificatif professionnel universitaire (Format: PDF, JPG, PNG - Max 5 Mo).'
+    },
+    public: {
+      title: '🏥 Profil : Secteur Public & Hospitalier (CHU & Hôpitaux)',
+      cotisation: 'Cotisation : 300 DH / an',
+      desc: 'Pour les ingénieurs hospitaliers, physiciens médicaux, techniciens biomédicaux et cadres exerçant dans les hôpitaux publics et CHU.',
+      docRequired: 'Carte professionnelle hospitalière (CHU) ou Attestation de travail',
+      affilLabel: 'Centre Hospitalier Universitaire (CHU) ou Hôpital public *',
+      affilPh: 'Ex: CHU Mohammed VI Marrakech, Hôpital Militaire, Hôpital Régional...',
+      detailLabel: 'Service / Département Biomédical *',
+      detailPh: 'Ex: Service de Maintenance Biomédicale, Direction des Équipements...',
+      justifLabel: 'Carte Professionnelle Hospitalière (CHU) ou Attestation de travail *',
+      justifHint: 'Justificatif d’exercice hospitalier public (Format: PDF, JPG, PNG - Max 5 Mo).'
+    },
+    prive: {
+      title: '💼 Profil : Secteur Privé / Entreprise & Société Biomédicale',
+      cotisation: 'Cotisation : 500 DH / an',
+      desc: 'Pour les ingénieurs d\'application, directeurs techniques, distributeurs, fabricants et consultants du secteur des dispositifs médicaux.',
+      docRequired: 'Attestation d’emploi, Carte professionnelle entreprise ou Registre de commerce',
+      affilLabel: 'Nom de la Société / Entreprise Biomédicale *',
+      affilPh: 'Ex: Dispositifs Médicaux SARL, Société de Technologie Hospitalière...',
+      detailLabel: 'Fonction / Poste occupé *',
+      detailPh: 'Ex: Ingénieur Biomédical SAV, Responsable Affaires Réglementaires...',
+      justifLabel: 'Attestation d’emploi entreprise ou Carte professionnelle *',
+      justifHint: 'Justificatif professionnel du secteur privé médical (Format: PDF, JPG, PNG - Max 5 Mo).'
+    }
+  };
+
+  function updateFormForType(type) {
+    const cfg = configs[type];
+    if (!cfg) return;
+
+    if (summaryBox) {
+      summaryBox.classList.remove('d-none');
+      if (summaryTitle) summaryTitle.textContent = cfg.title;
+      if (summaryBadge) summaryBadge.textContent = cfg.cotisation;
+      if (summaryDesc) summaryDesc.textContent = cfg.desc;
+      if (summaryDoc) summaryDoc.textContent = cfg.docRequired;
+    }
+
+    if (affilLabel) affilLabel.textContent = cfg.affilLabel;
+    if (affilInput) affilInput.placeholder = cfg.affilPh;
+    if (detailLabel) detailLabel.textContent = cfg.detailLabel;
+    if (detailInput) detailInput.placeholder = cfg.detailPh;
+    if (justifLabel) justifLabel.textContent = cfg.justifLabel;
+    if (justifHint) justifHint.textContent = cfg.justifHint;
+  }
+
+  if (typeSelect) {
+    typeSelect.addEventListener('change', () => {
+      updateFormForType(typeSelect.value);
+    });
+  }
+
+  // Clic sur les boutons de la section "Pourquoi Adhérer"
+  document.querySelectorAll('.select-type-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.getAttribute('data-type');
+      if (typeSelect && type) {
+        typeSelect.value = type;
+        updateFormForType(type);
+        const formSection = document.getElementById('formulaire-section');
+        if (formSection) {
+          formSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -277,6 +381,13 @@ function initAdhesionForm() {
     if (file.size > 5 * 1024 * 1024) {
       showAlert(alertBox, 'danger', '<i class="fa-solid fa-circle-exclamation me-2"></i>La taille du fichier ne doit pas dépasser 5 Mo.');
       return;
+    }
+
+    // Combiner l'affiliation générale et les détails spécifiques
+    const baseAffil = affilInput ? affilInput.value.trim() : '';
+    const detailAffil = detailInput ? detailInput.value.trim() : '';
+    if (baseAffil && detailAffil) {
+      formData.set('affiliation', `${baseAffil} — ${detailAffil}`);
     }
 
     // Effet chargement bouton
@@ -297,6 +408,7 @@ function initAdhesionForm() {
           `<i class="fa-solid fa-circle-check fa-lg me-2"></i><strong>Félicitations !</strong> ${data.message}`
         );
         form.reset();
+        if (summaryBox) summaryBox.classList.add('d-none');
       } else {
         showAlert(alertBox, 'danger', `<i class="fa-solid fa-triangle-exclamation me-2"></i>${data.message}`);
       }

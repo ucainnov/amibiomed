@@ -85,6 +85,17 @@ async function setupSchemaPg() {
     `);
     await pool.query("ALTER TABLE events ADD COLUMN IF NOT EXISTS type_activite VARCHAR(100) DEFAULT 'Journées Scientifiques'");
     await pool.query("ALTER TABLE events ADD COLUMN IF NOT EXISTS lien_action VARCHAR(255)");
+    await pool.query("ALTER TABLE adhesions DROP CONSTRAINT IF EXISTS adhesions_type_membre_check");
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS password_resets (
+        id SERIAL PRIMARY KEY,
+        email VARCHAR(150) NOT NULL,
+        code VARCHAR(10) NOT NULL,
+        expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+        used BOOLEAN DEFAULT FALSE,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
   } catch (e) {
     console.warn('Note PostgreSQL alter/create types:', e.message);
   }
@@ -186,6 +197,15 @@ function setupSchemaSqlite() {
       value TEXT NOT NULL,
       description TEXT,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS password_resets (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT NOT NULL,
+      code TEXT NOT NULL,
+      expires_at DATETIME NOT NULL,
+      used INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);
   try {
