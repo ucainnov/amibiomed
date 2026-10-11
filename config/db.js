@@ -218,7 +218,7 @@ function setupSchemaSqlite() {
 }
 
 async function seedInitialData() {
-  const adminEmail = process.env.DEFAULT_ADMIN_EMAIL || 'admin@amibiomed.ma';
+  const adminEmail = process.env.DEFAULT_ADMIN_EMAIL || 'qcmuca@gmail.com';
   const adminPassword = process.env.DEFAULT_ADMIN_PASSWORD || 'Amibiomed@2026!';
   const adminName = process.env.DEFAULT_ADMIN_NAME || 'Présidence AMIBIOMED';
 

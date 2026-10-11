@@ -276,7 +276,7 @@ function initAdhesionForm() {
   const configs = {
     etudiant: {
       title: '🎓 Profil : Étudiant / Doctorant en Biomédical',
-      cotisation: 'Cotisation Solidaire : 100 DH / an',
+      cotisation: 'Cotisation Solidaire : 50 DH / an',
       desc: 'Tarif réduit solidaire réservé aux étudiants et doctorants inscrits dans un cursus biomédical, santé numérique ou sciences de l\'ingénieur.',
       docRequired: 'Attestation de scolarité en cours de validité ou Carte d’étudiant',
       affilLabel: 'Établissement Universitaire / École *',
@@ -284,11 +284,11 @@ function initAdhesionForm() {
       detailLabel: 'Filière d’études / Niveau / Spécialité *',
       detailPh: 'Ex: Master Génie Biomédical (M2), Doctorat en Biotechnologie (1ère année)...',
       justifLabel: 'Attestation de Scolarité ou Carte d’étudiant en cours de validité *',
-      justifHint: 'Obligatoire pour valider le tarif solidaire étudiant de 100 DH / an (Format: PDF, JPG, PNG - Max 5 Mo).'
+      justifHint: 'Obligatoire pour valider le tarif solidaire étudiant de 50 DH / an (Format: PDF, JPG, PNG - Max 5 Mo).'
     },
     chercheur: {
       title: '🔬 Profil : Enseignant-Chercheur / Scientifique',
-      cotisation: 'Cotisation : 300 DH / an',
+      cotisation: 'Cotisation : 500 DH / an',
       desc: 'Pour les enseignants-chercheurs, professeurs universitaires et membres de laboratoires de recherche et d\'innovation biomédicale.',
       docRequired: 'Attestation de travail académique, carte professionnelle ou arrêté de nomination',
       affilLabel: 'Université / Établissement d’attachement *',
@@ -300,7 +300,7 @@ function initAdhesionForm() {
     },
     public: {
       title: '🏥 Profil : Secteur Public & Hospitalier (CHU & Hôpitaux)',
-      cotisation: 'Cotisation : 300 DH / an',
+      cotisation: 'Cotisation : 500 DH / an',
       desc: 'Pour les ingénieurs hospitaliers, physiciens médicaux, techniciens biomédicaux et cadres exerçant dans les hôpitaux publics et CHU.',
       docRequired: 'Carte professionnelle hospitalière (CHU) ou Attestation de travail',
       affilLabel: 'Centre Hospitalier Universitaire (CHU) ou Hôpital public *',
@@ -312,7 +312,7 @@ function initAdhesionForm() {
     },
     prive: {
       title: '💼 Profil : Secteur Privé / Entreprise & Société Biomédicale',
-      cotisation: 'Cotisation : 500 DH / an',
+      cotisation: 'Cotisation : 1000 DH / an',
       desc: 'Pour les ingénieurs d\'application, directeurs techniques, distributeurs, fabricants et consultants du secteur des dispositifs médicaux.',
       docRequired: 'Attestation d’emploi, Carte professionnelle entreprise ou Registre de commerce',
       affilLabel: 'Nom de la Société / Entreprise Biomédicale *',

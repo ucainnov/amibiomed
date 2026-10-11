@@ -11,15 +11,26 @@ function getTransporter() {
                          process.env.SMTP_PASS !== 'votre_mot_de_passe_application_ici';
 
   if (hasCredentials) {
-    transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.gmail.com',
-      port: parseInt(process.env.SMTP_PORT, 10) || 587,
-      secure: process.env.SMTP_PORT === '465',
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+    const isGmail = (process.env.SMTP_HOST || '').includes('gmail') || (process.env.SMTP_USER || '').includes('@gmail.com');
+    if (isGmail) {
+      transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.SMTP_USER.trim(),
+          pass: process.env.SMTP_PASS.trim(),
+        },
+      });
+    } else {
+      transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST || 'smtp.gmail.com',
+        port: parseInt(process.env.SMTP_PORT, 10) || 465,
+        secure: parseInt(process.env.SMTP_PORT, 10) === 465,
+        auth: {
+          user: process.env.SMTP_USER.trim(),
+          pass: process.env.SMTP_PASS.trim(),
+        },
+      });
+    }
   } else {
     // Mode simulation / fallback gracieux pour développement local
     transporter = {
