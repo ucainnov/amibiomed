@@ -177,31 +177,34 @@
   </section>
 
   <!-- ORGANIGRAMME HIÉRARCHIQUE (Style Inspiré du modèle UCA Organigramme) -->
+  <!-- ORGANIGRAMME HIÉRARCHIQUE DU BUREAU ACTUEL -->
   <section class="section-light" id="organigramme">
-    <div class="container-fluid px-4">
+    <div class="container px-3 px-md-4">
       <div class="text-center max-w-700 mx-auto mb-5">
-        <span class="badge bg-white text-danger border border-danger px-3 py-2 rounded-pill fw-bold text-uppercase mb-2 shadow-sm">Structure de Direction</span>
-        <h2 class="fw-bold fs-1">Organigramme du Bureau Actuel (2024 - Présent)</h2>
-        <p class="text-muted">Gouvernance exécutive et pôles d'intervention des membres du bureau de l'AMIBIOMED.</p>
-      </div>
-
-      <div class="d-lg-none text-center mb-3">
-        <span class="badge bg-white text-muted border px-3 py-2 rounded-pill shadow-sm">
-          <i class="fa-solid fa-arrows-left-right text-primary me-1"></i> Faites glisser l'organigramme horizontalement
+        <span class="badge bg-white text-success border border-success-subtle px-3 py-2 rounded-pill fw-bold text-uppercase mb-2 shadow-sm">
+          <i class="fa-solid fa-sitemap me-1"></i> Structure de Direction
         </span>
+        <h2 class="fw-bold fs-1">Organigramme du Bureau Actuel (2024 - Présent)</h2>
+        <p class="text-muted">Gouvernance exécutive et pôles d'intervention des membres du bureau de l'AMIBIOMED. Cliquez sur un profil pour accéder à son réseau professionnel.</p>
       </div>
 
       <div class="organigram-wrapper">
         <div class="organigram-tree">
           
           <!-- NIVEAU 1 : PRÉSIDENCE -->
-          <div class="organigram-node president mb-4">
+          <div class="organigram-node president mb-3">
+            <div class="organigram-avatar avatar-president">MB</div>
             <span class="node-badge badge-gold">
               <i class="fa-solid fa-crown"></i> Présidence
             </span>
             <div class="node-title">Président de l'Association</div>
-            <div class="node-name">Mohamed Aziz BSISS</div>
-            <small class="text-muted d-block mt-1"><i class="fa-solid fa-user-shield me-1"></i>Direction Générale & Stratégie</small>
+            <div class="node-name">Pr. Mohamed Aziz BSISS</div>
+            <small class="text-muted d-block mt-1">
+              <i class="fa-solid fa-building-columns me-1 text-warning"></i> Enseignant-Chercheur & Expert Biomédical (UCA)
+            </small>
+            <a href="https://www.linkedin.com/search/results/all/?keywords=Mohamed%20Aziz%20Bsiss%20AMIBIOMED" target="_blank" rel="noopener noreferrer" class="organigram-linkedin-btn" title="Consulter le profil LinkedIn de Pr. Mohamed Aziz BSISS">
+              <i class="fa-brands fa-linkedin"></i> Profil LinkedIn <i class="fa-solid fa-arrow-up-right-from-square ms-1" style="font-size:0.7rem;"></i>
+            </a>
           </div>
 
           <div class="organigram-level-connector"></div>
@@ -213,54 +216,76 @@
             <!-- Vice-Président -->
             <div class="col-md-6 col-lg-3">
               <div class="organigram-node text-center h-100 border-top border-4 border-success">
+                <div class="organigram-avatar avatar-vp">MA</div>
                 <span class="node-badge badge-green">
                   <i class="fa-solid fa-user-tie"></i> Vice-Présidence
                 </span>
                 <div class="node-title">Vice-Président</div>
                 <div class="node-name">Mohamed AMENAOU</div>
-                <small class="text-muted d-block mt-2">Relations Institutionnelles & Projets</small>
+                <small class="text-muted d-block mt-2">
+                  <i class="fa-solid fa-hospital me-1 text-success"></i> Relations Institutionnelles & CHU
+                </small>
+                <a href="https://www.linkedin.com/search/results/all/?keywords=Mohamed%20Amenaou%20Biomedical" target="_blank" rel="noopener noreferrer" class="organigram-linkedin-btn" title="Consulter le profil LinkedIn de Mohamed AMENAOU">
+                  <i class="fa-brands fa-linkedin"></i> Profil LinkedIn <i class="fa-solid fa-arrow-up-right-from-square ms-1" style="font-size:0.7rem;"></i>
+                </a>
               </div>
             </div>
 
-            <!-- Secrétariat -->
+            <!-- Secrétariat Général -->
             <div class="col-md-6 col-lg-3">
               <div class="organigram-node text-center h-100 border-top border-4 border-primary">
+                <div class="organigram-avatar avatar-sec">MB</div>
                 <span class="node-badge badge-blue">
                   <i class="fa-solid fa-file-signature"></i> Secrétariat Général
                 </span>
                 <div class="node-title">Secrétaire Général</div>
                 <div class="node-name">Mustapha BOUK</div>
-                <div class="border-top my-2 pt-2">
-                  <small class="text-muted d-block">Secrétaire Générale Adjointe :</small>
-                  <strong class="text-dark">Oumaima ELGHADOUINI</strong>
+                <small class="text-muted d-block mt-1">Instrumentation & Recherche Médicale</small>
+                <div class="border-top w-100 my-2 pt-2">
+                  <small class="text-muted d-block" style="font-size:0.75rem;">Secrétaire Générale Adjointe :</small>
+                  <strong class="text-dark d-block">Oumaima ELGHADOUINI</strong>
                 </div>
+                <a href="https://www.linkedin.com/search/results/all/?keywords=Mustapha%20Bouk%20Instrumentation" target="_blank" rel="noopener noreferrer" class="organigram-linkedin-btn" title="Consulter le profil LinkedIn du Secrétariat">
+                  <i class="fa-brands fa-linkedin"></i> Profil LinkedIn <i class="fa-solid fa-arrow-up-right-from-square ms-1" style="font-size:0.7rem;"></i>
+                </a>
               </div>
             </div>
 
             <!-- Trésorerie -->
             <div class="col-md-6 col-lg-3">
               <div class="organigram-node text-center h-100 border-top border-4 border-danger">
+                <div class="organigram-avatar avatar-tres">MC</div>
                 <span class="node-badge badge-red">
                   <i class="fa-solid fa-coins"></i> Trésorerie
                 </span>
                 <div class="node-title">Trésorier Général</div>
                 <div class="node-name">Mohamed Amine CHADI</div>
-                <div class="border-top my-2 pt-2">
-                  <small class="text-muted d-block">Trésorière Adjointe :</small>
-                  <strong class="text-dark">Maroua ICHALHANE</strong>
+                <small class="text-muted d-block mt-1">Dispositifs Médicaux & Gestion</small>
+                <div class="border-top w-100 my-2 pt-2">
+                  <small class="text-muted d-block" style="font-size:0.75rem;">Trésorière Adjointe :</small>
+                  <strong class="text-dark d-block">Maroua ICHALHANE</strong>
                 </div>
+                <a href="https://www.linkedin.com/search/results/all/?keywords=Mohamed%20Amine%20Chadi%20Biomedical" target="_blank" rel="noopener noreferrer" class="organigram-linkedin-btn" title="Consulter le profil LinkedIn de la Trésorerie">
+                  <i class="fa-brands fa-linkedin"></i> Profil LinkedIn <i class="fa-solid fa-arrow-up-right-from-square ms-1" style="font-size:0.7rem;"></i>
+                </a>
               </div>
             </div>
 
             <!-- Assesseur -->
             <div class="col-md-6 col-lg-3">
               <div class="organigram-node text-center h-100 border-top border-4 border-secondary">
+                <div class="organigram-avatar avatar-ass">AA</div>
                 <span class="node-badge badge-slate">
                   <i class="fa-solid fa-clipboard-check"></i> Assesseur
                 </span>
-                <div class="node-title">Assesseur Chargé des Projets</div>
+                <div class="node-title">Assesseur Projets</div>
                 <div class="node-name">Ahmed AAMOUCHE</div>
-                <small class="text-muted d-block mt-2">Suivi Technique & Partenariats</small>
+                <small class="text-muted d-block mt-2">
+                  <i class="fa-solid fa-diagram-project me-1 text-secondary"></i> Suivi Technique & Partenariats
+                </small>
+                <a href="https://www.linkedin.com/search/results/all/?keywords=Ahmed%20Aamouche%20UCA" target="_blank" rel="noopener noreferrer" class="organigram-linkedin-btn" title="Consulter le profil LinkedIn d'Ahmed AAMOUCHE">
+                  <i class="fa-brands fa-linkedin"></i> Profil LinkedIn <i class="fa-solid fa-arrow-up-right-from-square ms-1" style="font-size:0.7rem;"></i>
+                </a>
               </div>
             </div>
 
@@ -271,49 +296,138 @@
     </div>
   </section>
 
-  <!-- Tableau d'Honneur : Bureau Fondateur (2017 - 2024) -->
-  <section class="section-white">
+  <!-- TABLEAU D'HONNEUR : BUREAU FONDATEUR (2017 - 2024) -->
+  <section class="section-white" id="bureau-fondateur">
     <div class="container">
       <div class="text-center max-w-700 mx-auto mb-5">
-        <span class="badge bg-white text-dark border px-3 py-2 rounded-pill fw-bold text-uppercase mb-2 shadow-sm">Patrimoine Historique</span>
-        <h2 class="fw-bold fs-1">Membres Fondateurs (2017 - 2024)</h2>
-        <p class="text-muted">Hommage aux pionniers affiliés à l'Université Cadi Ayyad et aux hôpitaux universitaires ayant porté la création de l'AMIBIOMED.</p>
+        <span class="badge bg-white text-dark border px-3 py-2 rounded-pill fw-bold text-uppercase mb-2 shadow-sm">
+          <i class="fa-solid fa-landmark me-1 text-warning"></i> Patrimoine Historique
+        </span>
+        <h2 class="fw-bold fs-1">Bureau fondateur (2017 - 2024)</h2>
+        <p class="text-muted">Hommage aux fondateurs pionniers ayant porté la création et le développement de l'AMIBIOMED.</p>
       </div>
 
-      <div class="table-responsive bg-white rounded-4 shadow-sm border p-4">
+      <div class="table-responsive bg-white rounded-4 shadow-sm border p-3 p-md-4">
         <table class="table table-hover align-middle mb-0">
           <thead class="table-light">
             <tr>
-              <th>Mandat</th>
-              <th>Membre Fondateur</th>
-              <th>Qualité / Titre</th>
-              <th>Affiliation Institutionnelle</th>
+              <th style="width: 32%;" class="ps-3 py-3">Fonction</th>
+              <th class="ps-3 py-3">Nom &amp; Affiliation</th>
+              <th style="width: 18%;" class="text-end pe-3 py-3">Réseau</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><span class="badge bg-secondary">2017 - 2024</span></td>
-              <td><strong>Pr. Mohamed Aziz BSISS</strong></td>
-              <td>Enseignant-Chercheur & Expert Biomédical</td>
-              <td>Université Cadi Ayyad, Marrakech</td>
+              <td class="ps-3 py-3">
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill fw-bold">
+                  <i class="fa-solid fa-crown me-1"></i> Président
+                </span>
+              </td>
+              <td class="ps-3 py-3">
+                <span class="fw-bold text-dark fs-6">Mohamed Aziz Bsiss</span>
+                <span class="text-muted ms-2">(UCA, Marrakech)</span>
+              </td>
+              <td class="text-end pe-3 py-3">
+                <a href="https://www.linkedin.com/search/results/all/?keywords=Mohamed%20Aziz%20Bsiss" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1">
+                  <i class="fa-brands fa-linkedin me-1"></i> LinkedIn
+                </a>
+              </td>
             </tr>
             <tr>
-              <td><span class="badge bg-secondary">2017 - 2024</span></td>
-              <td><strong>Ing. Mohamed AMENAOU</strong></td>
-              <td>Ingénieur Biomédical Hospitalier</td>
-              <td>CHU Mohammed VI, Marrakech</td>
+              <td class="ps-3 py-3">
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill fw-bold">
+                  <i class="fa-solid fa-user-tie me-1"></i> Vice-Président
+                </span>
+              </td>
+              <td class="ps-3 py-3">
+                <span class="fw-bold text-dark fs-6">Said Raghay</span>
+                <span class="text-muted ms-2">(UCA, Marrakech)</span>
+              </td>
+              <td class="text-end pe-3 py-3">
+                <a href="https://www.linkedin.com/search/results/all/?keywords=Said%20Raghay%20UCA" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1">
+                  <i class="fa-brands fa-linkedin me-1"></i> LinkedIn
+                </a>
+              </td>
             </tr>
             <tr>
-              <td><span class="badge bg-secondary">2017 - 2024</span></td>
-              <td><strong>Dr. Mustapha BOUK</strong></td>
-              <td>Chercheur en Instrumentation Médicale</td>
-              <td>Faculté des Sciences Semlalia</td>
+              <td class="ps-3 py-3">
+                <span class="badge bg-info-subtle text-info border border-info-subtle px-3 py-2 rounded-pill fw-bold">
+                  <i class="fa-solid fa-file-signature me-1"></i> Secrétaire général
+                </span>
+              </td>
+              <td class="ps-3 py-3">
+                <span class="fw-bold text-dark fs-6">Karim Ouahbi</span>
+                <span class="text-muted ms-2">(UCA, Marrakech)</span>
+              </td>
+              <td class="text-end pe-3 py-3">
+                <a href="https://www.linkedin.com/search/results/all/?keywords=Karim%20Ouahbi%20UCA" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1">
+                  <i class="fa-brands fa-linkedin me-1"></i> LinkedIn
+                </a>
+              </td>
             </tr>
             <tr>
-              <td><span class="badge bg-secondary">2017 - 2024</span></td>
-              <td><strong>Ing. Mohamed Amine CHADI</strong></td>
-              <td>Expert en Maintenance Équipements Médicaux</td>
-              <td>Partenaire Industriel Biomédical</td>
+              <td class="ps-3 py-3">
+                <span class="badge bg-info-subtle text-info border border-info-subtle px-3 py-2 rounded-pill fw-bold">
+                  <i class="fa-solid fa-pen-nib me-1"></i> Secrétaire général adjoint
+                </span>
+              </td>
+              <td class="ps-3 py-3">
+                <span class="fw-bold text-dark fs-6">Aaziz Kebbou</span>
+                <span class="text-muted ms-2">(UCA, Marrakech)</span>
+              </td>
+              <td class="text-end pe-3 py-3">
+                <a href="https://www.linkedin.com/search/results/all/?keywords=Aaziz%20Kebbou%20UCA" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1">
+                  <i class="fa-brands fa-linkedin me-1"></i> LinkedIn
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td class="ps-3 py-3">
+                <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2 rounded-pill fw-bold">
+                  <i class="fa-solid fa-coins me-1"></i> Trésorier
+                </span>
+              </td>
+              <td class="ps-3 py-3">
+                <span class="fw-bold text-dark fs-6">Ahmed Aamouche</span>
+                <span class="text-muted ms-2">(UCA, Marrakech)</span>
+              </td>
+              <td class="text-end pe-3 py-3">
+                <a href="https://www.linkedin.com/search/results/all/?keywords=Ahmed%20Aamouche%20UCA" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1">
+                  <i class="fa-brands fa-linkedin me-1"></i> LinkedIn
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td class="ps-3 py-3">
+                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2 rounded-pill fw-bold">
+                  <i class="fa-solid fa-clipboard-check me-1"></i> Assesseur
+                </span>
+              </td>
+              <td class="ps-3 py-3">
+                <span class="fw-bold text-dark fs-6">Maoualainine Fadl Mrabih Rabou</span>
+                <span class="text-muted ms-2">(UCA)</span>
+              </td>
+              <td class="text-end pe-3 py-3">
+                <a href="https://www.linkedin.com/search/results/all/?keywords=Maoualainine%20Fadl%20Mrabih%20Rabou" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1">
+                  <i class="fa-brands fa-linkedin me-1"></i> LinkedIn
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td class="ps-3 py-3">
+                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2 rounded-pill fw-bold">
+                  <i class="fa-solid fa-clipboard-check me-1"></i> Assesseur
+                </span>
+              </td>
+              <td class="ps-3 py-3">
+                <span class="fw-bold text-dark fs-6">Abdelhamid El Omrani</span>
+                <span class="text-muted ms-2">(UCA, Marrakech)</span>
+              </td>
+              <td class="text-end pe-3 py-3">
+                <a href="https://www.linkedin.com/search/results/all/?keywords=Abdelhamid%20El%20Omrani%20UCA" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1">
+                  <i class="fa-brands fa-linkedin me-1"></i> LinkedIn
+                </a>
+              </td>
             </tr>
           </tbody>
         </table>

@@ -198,23 +198,6 @@ a:hover {
   font-weight: 600;
 }
 
-/* Lien Connexion — texte subtil */
-.nav-connexion-link {
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: #64748B;
-  padding: 7px 12px;
-  border-radius: var(--radius-pill);
-  transition: var(--transition);
-  text-decoration: none;
-  white-space: nowrap !important;
-  flex-shrink: 0;
-}
-
-.nav-connexion-link:hover {
-  color: var(--color-dark);
-  background: rgba(15, 23, 42, 0.05);
-}
 
 /* Boutons UCA Innov & AMIBIOMED */
 .btn-amibiomed-primary {
@@ -598,48 +581,84 @@ a:hover {
    —————————————————————————————————————————————————————————— */
 .organigram-wrapper {
   width: 100%;
-  overflow-x: auto;
-  padding: 40px 10px;
+  padding: 20px 10px;
 }
 
 .organigram-tree {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 980px;
+  width: 100%;
 }
 
 .organigram-node {
   background: #FFFFFF;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  border: 2px solid var(--color-border);
-  padding: 18px 24px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--color-border);
+  padding: 24px 20px;
   text-align: center;
   position: relative;
-  transition: var(--transition);
-  min-width: 230px;
-  max-width: 290px;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .organigram-node:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-tech);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-primary);
 }
 
 .organigram-node.president {
   border-color: #F59E0B;
-  background: linear-gradient(180deg, #FFFBEB 0%, #FFFFFF 100%);
-  box-shadow: 0 16px 40px rgba(245, 158, 11, 0.15);
-  min-width: 300px;
+  border-width: 2px;
+  background: linear-gradient(180deg, #FFFDF5 0%, #FFFFFF 100%);
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.12);
+  max-width: 420px;
+  width: 100%;
+}
+
+.organigram-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #FFFFFF;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  border: 2px solid #FFFFFF;
+}
+
+.organigram-avatar.avatar-president {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  width: 68px;
+  height: 68px;
+  font-size: 1.35rem;
+}
+.organigram-avatar.avatar-vp {
+  background: linear-gradient(135deg, #10B981, #059669);
+}
+.organigram-avatar.avatar-sec {
+  background: linear-gradient(135deg, #0284C7, #0369A1);
+}
+.organigram-avatar.avatar-tres {
+  background: linear-gradient(135deg, #EF4444, #DC2626);
+}
+.organigram-avatar.avatar-ass {
+  background: linear-gradient(135deg, #64748B, #475569);
 }
 
 .node-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -655,10 +674,11 @@ a:hover {
 .badge-slate { background: #E2E8F0; color: #1E293B; }
 
 .node-title {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--color-muted);
   font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
 .node-name {
@@ -668,9 +688,32 @@ a:hover {
   margin-top: 4px;
 }
 
+.organigram-linkedin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #F0F7FF;
+  color: #0A66C2 !important;
+  border: 1px solid rgba(10, 102, 194, 0.22);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-top: 14px;
+}
+
+.organigram-linkedin-btn:hover {
+  background: #0A66C2;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(10, 102, 194, 0.25);
+  transform: translateY(-2px);
+}
+
 .organigram-level-connector {
   width: 2px;
-  height: 35px;
+  height: 32px;
   background-color: #CBD5E1;
 }
 
@@ -679,6 +722,16 @@ a:hover {
   background-color: #CBD5E1;
   width: 82%;
   position: relative;
+}
+
+@media (max-width: 991px) {
+  .organigram-level-connector,
+  .organigram-horizontal-connector {
+    display: none;
+  }
+  .organigram-node.president {
+    max-width: 100%;
+  }
 }
 
 /* ——————————————————————————————————————————————————————————
@@ -1100,10 +1153,6 @@ a:hover {
   }
   .btn-amibiomed-primary {
     padding: 7px 14px;
-    font-size: 0.83rem;
-  }
-  .nav-connexion-link {
-    padding: 6px 8px;
     font-size: 0.83rem;
   }
   .brand-logo {
